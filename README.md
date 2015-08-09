@@ -1,7 +1,7 @@
 # Spongechat
 
 The powered chat system to new SpongePowered Minecraft API.
-> This project is licensed under the **GNU General Public License 3** and it can be modified to meet your needs while maintaining the copyright credits to the. original owner
+> This project is licensed under the **GNU General Public License 3** and it can be modified to meet your needs while maintaining the copyright credits to the original owner
 
   - Licensed under **GPLv3**;
   - Allows **infite** channels;
