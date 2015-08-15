@@ -15,39 +15,24 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
-package me.kaward.spongepowered.spongechat.providers;
+package me.kaward.spongepowered.spongechat;
 
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
-import me.kaward.spongepowered.spongechat.Spongechannel;
-
-import org.spongepowered.api.entity.player.Player;
-
-public interface IPlayerManager
+public class Channel
 {
 
-	public Set<Spongechannel> getActiveChannels(Player player);
+	public static Set<Spongechannel> ALL_CHANNELS = Channel.build0();
+	public static Spongechannel DEFAULT_CHANNEL = Channel.build1();
 
-	public void mutePlayer(Player player, Spongechannel channel, boolean mute);
+	public static Set<Spongechannel> build0()
+	{
+		return null;
+	}
 
-	public void mutePlayer(Player player, boolean mute);
-
-	public void setFocus(Player player, Spongechannel channel);
-
-	public void setPlayerTotalMessages(Player player, Integer total);
-
-	public void setPlayerAfk(Player player, boolean afk);
-
-	public boolean isAfk(Player player);
-
-	public int activeChannels(Player player);
-
-	@Nullable
-	public int getPlayerTotalMessages(Player player);
-
-	@Nullable
-	public Spongechannel getFocusedChannel(Player player);
+	public static Spongechannel build1()
+	{
+		return null;
+	}
 
 }

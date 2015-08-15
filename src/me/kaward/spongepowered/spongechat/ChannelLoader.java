@@ -18,6 +18,7 @@ import org.spongepowered.api.service.sql.SqlService;
 public final class ChannelLoader
 {
 
+	protected static Set<Spongechannel> channels = new HashSet<Spongechannel>();
 	protected static SqlService sql = null;
 
 	protected ChannelLoader()
@@ -26,6 +27,8 @@ public final class ChannelLoader
 
 	public void loadChannels(boolean debug) throws SQLException, ClassNotFoundException, IOException
 	{
+		channels.clear();
+
 		if (debug)
 		{
 			getSpongechat().getLogger().info("Trying to connect to the database..");
@@ -67,8 +70,6 @@ public final class ChannelLoader
 
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `Spongechannels`;");
 			ResultSet rs = ps.executeQuery();
-
-			Set<Spongechannel> channels = new HashSet<Spongechannel>();
 
 			if (debug)
 			{
