@@ -1,6 +1,6 @@
 /**
- *  Spongechat — A new Powered Chat Systemimport org.spongepowered.api.world.Location;
-ht (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Spongechat — A new Powered Chat System for SpongePowered Minecraft API.
+ *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@ ht (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributor
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- **/
+ */
 package me.kaward.spongepowered.spongechat;
 
 import org.spongepowered.api.world.Location;
