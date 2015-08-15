@@ -24,9 +24,22 @@ import org.spongepowered.api.event.entity.player.PlayerChatEvent;
 import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
 import org.spongepowered.api.text.Text;
 
+/**
+ * This class manage the events, and your handlers.
+ * 
+ * @author Pitter Thog (Kaward) <https://github.com/Kaward/>
+ * @category Handler
+ *
+ */
 public class EventManager
 {
 
+	/**
+	 * Register the player in the system (automatically on join), to use it
+	 * after.
+	 *
+	 * @param event the instance of Join event.
+	 */
 	@Subscribe(order = Order.LAST)
 	public void handle(PlayerJoinEvent event)
 	{
@@ -34,14 +47,20 @@ public class EventManager
 		SpongechatAPI.getPlayerManager().setFocus(player, Channel.DEFAULT_CHANNEL);
 	}
 
+	/**
+	 * Send the message to all players, and log it.
+	 * 
+	 * @param event the instance of Chat event (the order used is LAST because it is the last action — send the message)
+	 */
 	@Subscribe(order = Order.LAST)
-	@SuppressWarnings("unused")
 	public void handle(PlayerChatEvent event)
 	{
-		Player player = event.getEntity();
-		Text text = event.getMessage();
+		Player player = event.getEntity(); // Get the source (player)
+		Text text = event.getMessage(); // Get the formatted message text
 
-		Message message = new Message(player, SpongechatAPI.getPlayerManager().getFocusedChannel(player), text);
+		Message message = new Message(player, SpongechatAPI.getPlayerManager().getFocusedChannel(player), text); // Prepare the instance of final message
+		message.send(); // Send the message
+		event.setCancelled(true); // The really chat event can't be executed.
 	}
 
 }

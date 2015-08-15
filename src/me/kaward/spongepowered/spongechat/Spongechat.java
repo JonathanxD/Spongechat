@@ -99,7 +99,7 @@ public class Spongechat implements ISpongechat
 		Spongechat.sponge.getServiceManager().setProvider(this, IPlayerManager.class, new PlayerManager());
 		SpongechatAPI.getChannelLoader().loadChannels(true);
 
-		Spongechat.sponge.getCommandDispatcher().register(this, SpongechatCommand, "spongechat", "spc");
+		Spongechat.sponge.getCommandDispatcher().register(this, SpongechatCommand, "spongechat", "spc", "sc");
 	}
 
 	@Subscribe
