@@ -2,29 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/Thierre/Jp/sponge-1.8-1499-2.1DEV-530.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Thierre/Downloads/sponge-1.8-1499-2.1DEV-530-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Thierre/Jp/guava-18.0.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Thierre/Jp/guava-18.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Thierre/Jp/Google APIs/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Thierre/Jp/Google APIs/gson-2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Thierre/Jp/commons-io-2.4.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Thierre/Jp/commons-io-2.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Thierre/Jp/commons-lang3-3.4.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/Thierre/Jp/commons-lang3-3.4-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Thierre/Jp/bsh-2.0b4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Thierre/Jp/jazzy0-2-1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Pedro/Mars/Sponge Powered/forge-1.8-11.14.3.1502-universal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Pedro/Mars/Sponge Powered/minecraft_server.1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Pedro/Mars/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Pedro/Mars/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Pedro/Mars/gson-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Pedro/Mars/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Pedro/Mars/jazzy0-2-1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joao Pedro/Mars/sponge-1.8-1499-2.1DEV-530.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

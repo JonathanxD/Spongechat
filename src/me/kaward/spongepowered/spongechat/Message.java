@@ -21,8 +21,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import me.kaward.spongepowered.spongechat.events.ChannelMessageEvent;
-
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
@@ -32,6 +30,7 @@ public class Message
 {
 
 	private static final long serialVersionUID = -2817680756335125068L;
+	private Set<UUID> receivers = new HashSet<UUID>();
 	private UUID messageId = UUID.randomUUID();
 	private UUID sentBy = null;
 	private Spongechannel channel = null;
@@ -53,7 +52,6 @@ public class Message
 		this.unformattedMessage = Texts.toPlain(text).replace("§", "&");
 	}
 
-	@SuppressWarnings("deprecation")
 	public void send()
 	{
 		Spongechat sponge = Spongechat.sponge.getServiceManager().provide(Spongechat.class).get();
@@ -79,21 +77,12 @@ public class Message
 			}
 		}
 
-		ChannelMessageEvent event = new ChannelMessageEvent(sentBy, channel, this, Texts.of(unformattedMessage).builder().build(), receivers);
-		Spongechat.sponge.getEventManager().post(event);
-		if (event.isCancelled())
-		{
-			return;
-		}
-
 		// ---> Falta carregar o 'Format', por em quanto fica esse padrão;
-		String format = "§e[{n}] §r{group_prefixes} {chat_prefix} §f{nick}: §e{msg}";
-
-		for (UUID unique : event.getReceivers())
-		{
-			Player p = sponge.getGame().getServer().getPlayer(unique).get();
-			p.sendMessage(Texts.of(Texts.replaceCodes(format, '&')).builder().build());
-		}
+		/*
+		 * String format = "§e[{n}] §r{group_prefixes} {chat_prefix} §f{nick}: §e{msg}";
+		 *
+		 * for (UUID unique : event.getReceivers()) { Player p = sponge.getGame().getServer().getPlayer(unique).get(); p.sendMessage(Texts.of(Texts.replaceCodes(format, '&')).builder().build()); }
+		 */
 	}
 
 	public void setText(Text text)
@@ -104,6 +93,11 @@ public class Message
 	public Text getText()
 	{
 		return text;
+	}
+
+	public Set<UUID> getReceivers()
+	{
+		return receivers;
 	}
 
 	public UUID getMessageId()

@@ -22,6 +22,7 @@ import java.util.UUID;
 public class ContextFactory
 {
 
+	@SuppressWarnings("unused")
 	public static void setContext(UUID player, Object context)
 	{
 		Object[] reader = (Object[]) context;

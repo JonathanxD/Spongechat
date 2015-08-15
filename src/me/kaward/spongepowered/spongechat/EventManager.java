@@ -17,16 +17,22 @@
  */
 package me.kaward.spongepowered.spongechat;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.entity.player.PlayerChatEvent;
 import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.Texts;
+
+import me.kaward.spongepowered.spongechat.events.ChannelMessageEvent;
 
 /**
  * This class manage the events, and your handlers.
- * 
+ *
  * @author Pitter Thog (Kaward) <https://github.com/Kaward/>
  * @category Handler
  *
@@ -34,33 +40,68 @@ import org.spongepowered.api.text.Text;
 public class EventManager
 {
 
+	public static Queue<OrderedMessage> queue = new LinkedList<OrderedMessage>();
+
 	/**
-	 * Register the player in the system (automatically on join), to use it
-	 * after.
+	 * Register the player in the system (automatically on join), to use it after.
 	 *
 	 * @param event the instance of Join event.
 	 */
 	@Subscribe(order = Order.LAST)
-	public void handle(PlayerJoinEvent event)
+	public void handleJoinEvent(PlayerJoinEvent event)
 	{
 		Player player = event.getEntity();
 		SpongechatAPI.getPlayerManager().setFocus(player, Channel.DEFAULT_CHANNEL);
 	}
 
 	/**
-	 * Send the message to all players, and log it.
-	 * 
-	 * @param event the instance of Chat event (the order used is LAST because it is the last action — send the message)
+	 * Prepare the event to real perform message on the chat.
 	 */
-	@Subscribe(order = Order.LAST)
-	public void handle(PlayerChatEvent event)
+	@Subscribe(order = Order.FIRST)
+	public void handlePlayerChatEventFirst(PlayerChatEvent event)
 	{
-		Player player = event.getEntity(); // Get the source (player)
-		Text text = event.getMessage(); // Get the formatted message text
+		Player player = event.getEntity();
+		Text text = event.getMessage();
+		Message message = new Message(player, SpongechatAPI.getPlayerManager().getFocusedChannel(player), text);
 
-		Message message = new Message(player, SpongechatAPI.getPlayerManager().getFocusedChannel(player), text); // Prepare the instance of final message
-		message.send(); // Send the message
-		event.setCancelled(true); // The really chat event can't be executed.
+		ChannelMessageEvent preparedEvent = new ChannelMessageEvent(message.getSentBy(), message.getChannel(), message, Texts.of(message.getUnformattedMessage()).builder().build(), message.getReceivers());
+		Spongechat.sponge.getEventManager().post(preparedEvent);
+
+		if (preparedEvent.isCancelled())
+		{
+			event.setCancelled(true);
+		}
+		else
+		{
+			OrderedMessage order = new OrderedMessage(player.getUniqueId(), preparedEvent.getMessage());
+			queue.offer(order);
+		}
+	}
+
+	/**
+	 * After the preparation (handler0), this action is called to real perform message on the chat.
+	 *
+	 * @see me.kaward.spongepowered.spongechat.EventManager The method handle0(PlayerChatEvent ...)
+	 */
+	@Subscribe(order = Order.LAST, ignoreCancelled = true)
+	public void handlePlayerChatEventLast(PlayerChatEvent event)
+	{
+		if (event.isCancelled())
+		{
+			if (!queue.isEmpty())
+			{
+				queue.remove();
+			}
+		}
+		else
+		{
+			OrderedMessage order = queue.poll();
+			if (order != null)
+			{
+				order.getMessage().send();
+				event.setCancelled(true);
+			}
+		}
 	}
 
 }
