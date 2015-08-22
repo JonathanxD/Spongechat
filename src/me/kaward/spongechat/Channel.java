@@ -23,19 +23,18 @@ import java.util.UUID;
 import org.spongepowered.api.util.command.spec.CommandSpec;
 
 /**
- * [ENGLISH] This class returns Channel's informations and more. It's not instanceable class.
+ * <p>
+ * This class handle information of channel like your <b>UUID</b>, <b>name</b> and <b>nickname</b>, etc.
+ * </p>
  *
- * [PORTUGUESE] Esta classe contém informações/etc de canais. Não é uma classe que possa ser instanciada.
- *
- * @author Pitter Thog (Kaward) <https://github.com/Kaward/>
- * @category Channel Management and Services
+ * @category Channel Handlering
  *
  */
 public class Channel implements Serializable
 {
 
-	private static final long serialVersionUID = -5576999395852541159L;
-	protected transient CommandSpec channelCommand = null;
+	public static final long serialVersionUID = -5576999395852541159L;
+	public transient CommandSpec channelCommand = null;
 	private UUID channelUniqueId = null;
 	private String channelFormat = "";
 	private String channelNick = "";
@@ -47,6 +46,24 @@ public class Channel implements Serializable
 	private Boolean channelColorsAllowed = false;
 	private Boolean channelMathAllowed = false;
 
+	/**
+	 * <p>
+	 * Create a fake channel, to use the instance for something. It's used for create channel's.
+	 * </p>
+	 *
+	 * @param channelUniqueId An Universal Unique Identification
+	 * @param channelName The name
+	 * @param channelNick The nick
+	 * @param cost The cost per message
+	 * @param delay The delay per message (in secs)
+	 * @param distance The distance of message to be displayed (like a radius)
+	 * @param crossworld If the message be displayed in all worlds of server
+	 * @param colors If collors will be allowed for player's who has permissions for it
+	 * @param math If automatic mathematic calculator is allowed in the chat
+	 * @param format The format of channel (like e.g. [{nick}] {prefix} {groupprefix} {name}: {message}), use of collors allowed
+	 *
+	 * @return An fake instance (the channel does not exists) of a Channel
+	 */
 	public static Channel makeFake(UUID channelUniqueId, String channelName, String channelNick, Integer cost, Integer delay, Integer distance, Boolean crossworld, Boolean colors, Boolean math, String format)
 	{
 		return new Channel(channelUniqueId, channelName, channelNick, cost, delay, distance, crossworld, colors, math, format);
@@ -66,102 +83,203 @@ public class Channel implements Serializable
 		this.channelMathAllowed = math;
 	}
 
-	public Boolean getChannelMathematicsAllowed()
+	/**
+	 *
+	 * @return If the auto mathematic calculator is allowed and activated, returns <b>true</b>, if not returns <b>false</b>.
+	 */
+	public boolean hasMathematicsAllowed()
 	{
 		return channelMathAllowed;
 	}
 
-	public void setChannelMathematicsAllowed(Boolean math)
+	/**
+	 * Activate and allows or block the auto mathematic calculator on the channel
+	 *
+	 * @param math <b>true</b> for activate and allow, and <b>false</b> for block.
+	 */
+	public void setMathematicsAllowed(boolean math)
 	{
 		this.channelMathAllowed = math;
 	}
 
-	public UUID getChannelUniqueId()
+	/**
+	 *
+	 * @return Returns the <b>Universal Unique Identification (UUID)</b> of the channel.
+	 * @see java.util.UUID Universal Unique Identification
+	 */
+	public UUID getIdentification()
 	{
 		return channelUniqueId;
 	}
 
-	public Integer getDistance()
+	/**
+	 *
+	 * @return The distance (radius) of the channel for messages (0 = worldwide)
+	 */
+	public int getDistance()
 	{
 		return channelDistance;
 	}
 
-	public void setDistance(Integer channelDistance)
+	/**
+	 * <p>
+	 * Modify the distance (radius) of channel for messages.
+	 * </p>
+	 *
+	 * @param channelDistance The new radius value
+	 */
+	public void setDistance(int channelDistance)
 	{
 		this.channelDistance = channelDistance;
 	}
 
-	public Boolean isCrossworld()
+	/**
+	 *
+	 * @return If the channel is crossworld returns <b>true</b>, if not returns <b>false</b>.
+	 */
+	public boolean isCrossworld()
 	{
 		return channelCrossworld;
 	}
 
-	public void setCrossworld(Boolean channelCrossworld)
+	/**
+	 * <p>
+	 * Modify crossworld of channel.. If enabled, the message will be displayed in all worlds and worldwide (ignoring radius).
+	 * </p>
+	 *
+	 * @param channelCrossworld <b>true</b> for enable and <b>false</b> for disable
+	 */
+	public void setCrossworld(boolean channelCrossworld)
 	{
 		this.channelCrossworld = channelCrossworld;
 	}
 
+	/**
+	 *
+	 * @return The CommandSpec of the Channel
+	 * @see org.spongepowered.api.util.command.spec.CommandSpec CommandSpec
+	 * @see me.kaward.spongechat.ChatCommand Command per channel handlering
+	 */
 	public CommandSpec getChannelCommand()
 	{
 		return channelCommand;
 	}
 
-	public void setChannelCommand(CommandSpec channelCommand)
-	{
-		this.channelCommand = channelCommand;
-	}
-
+	/**
+	 *
+	 * @return The nickname of the channel. It's also used to create the Channel Command, like /{nickname} {message here}
+	 */
 	public String getNickname()
 	{
 		return channelNick;
 	}
 
+	/**
+	 *
+	 * @return The unformated format of channel to be displayed, like e.g '<b>[{nick}] {prefix} {groupprefix} {name}: {message}'<b>
+	 */
 	public String getFormat()
 	{
 		return channelFormat;
 	}
 
+	/**
+	 * <p>
+	 * Modify the channel nickname.
+	 * <p>
+	 *
+	 * <p>
+	 * <b>CAUTION:</b> needs server restart to be affect the channel command
+	 * </p>
+	 *
+	 * @param channelNick The new nickname for the channel to replace the actually
+	 */
 	public void setNickname(String channelNick)
 	{
 		this.channelNick = channelNick;
 	}
 
+	/**
+	 *
+	 * @return The name of the channel
+	 */
 	public String getChannelName()
 	{
 		return channelName;
 	}
 
+	/**
+	 * Modify the channel's name.
+	 *
+	 * @param channelName The new channel's name to replace the actually name.
+	 */
 	public void setChannelName(String channelName)
 	{
 		this.channelName = channelName;
 	}
 
-	public Integer getChannelMessageCost()
+	/**
+	 * <p>
+	 * <b>CAUTION:</b> The Economy Hook Services (EHS) of Spongechat is actually in Development and in Alpha.
+	 * </p>
+	 *
+	 * @return The channel's price/cost for send messages.
+	 */
+	public int getChannelMessageCost()
 	{
 		return channelMessageCost;
 	}
 
-	public void setChannelMessageCost(Integer channelMessageCost)
+	/**
+	 * <p>
+	 * <b>CAUTION:</b> The Economy Hook Services (EHS) of Spongechat is actually in Development and in Alpha.
+	 * </p>
+	 *
+	 * <p>
+	 * Modify the channel's price/cost for send messages.
+	 * </p>
+	 *
+	 * @param channelMessageCost The new channel's price/cost
+	 */
+	public void setMessageCost(int channelMessageCost)
 	{
 		this.channelMessageCost = channelMessageCost;
 	}
 
-	public Integer getChannelMessageDelay()
+	/**
+	 *
+	 * @return The channel's delay per message
+	 */
+	public int getMessageDelay()
 	{
 		return channelMessageDelay;
 	}
 
-	public void setChannelMessageDelay(Integer channelMessageDelay)
+	/**
+	 * Modify the channel's delay per message
+	 *
+	 * @param channelMessageDelay The new channel's delay
+	 */
+	public void setChannelMessageDelay(int channelMessageDelay)
 	{
 		this.channelMessageDelay = channelMessageDelay;
 	}
 
-	public Boolean getChannelColorsAllowed()
+	/**
+	 *
+	 * @return If colors are allowed in the channel, returns <b>true</b> and if not, <b>false</b>
+	 */
+	public boolean getChannelColorsAllowed()
 	{
 		return channelColorsAllowed;
 	}
 
-	public void setChannelColorsAllowed(Boolean channelColorsAllowed)
+	/**
+	 * Enable or disable the use of colors in the channel.
+	 *
+	 * @param channelColorsAllowed <b>true</b> to enable the use of colors and <b>false</b> to disable.
+	 */
+	public void setChannelColorsAllowed(boolean channelColorsAllowed)
 	{
 		this.channelColorsAllowed = channelColorsAllowed;
 	}
