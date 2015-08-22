@@ -22,7 +22,7 @@ public class DelayManager implements IDelayManager
 	{
 		assert(player != null) : "Player can't be null.";
 		assert(channel != null) : "Channel can't be null.";
-		final TaskBuilder builder = SpongechatAPI.getProvider().getGame().getScheduler().getTaskBuilder();
+		final TaskBuilder builder = SpongechatAPI.getProvider().getGame().getScheduler().createTaskBuilder();
 
 		Runnable executor = new Runnable()
 		{
