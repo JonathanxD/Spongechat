@@ -1,0 +1,7 @@
+Sistema de Logs 										[ 15% ]
+Sistema de Comando por Canal						    [ 60% ]
+Sistema de Gerenciamento de Jogadores (API)			    [ 75% ]
+Sistema de Gerenciamento de Canais (API)				[ 50% ]
+Sistema de Serviço de Pagination 						[ 50% ]
+Sistema de Comandos Gerais 								[ 15% ]
+Sistema de Préprocessamento de Mensagens 				[ 50% ]
