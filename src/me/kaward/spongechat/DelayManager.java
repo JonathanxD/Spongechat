@@ -33,7 +33,7 @@ public class DelayManager implements IDelayManager
 			}
 		};
 
-		final Task task = builder.name("CD" + player.getUniqueId().toString() + channel.getChannelName()).async().delay(channel.getChannelMessageDelay(), TimeUnit.SECONDS).execute(executor).submit(SpongechatAPI.getProvider());
+		final Task task = builder.name("CD" + player.getUniqueId().toString() + channel.getChannelName()).async().delay(channel.getMessageDelay(), TimeUnit.SECONDS).execute(executor).submit(SpongechatAPI.getProvider());
 
 		Entry<Channel, Task> set = new Entry<Channel, Task>()
 		{
