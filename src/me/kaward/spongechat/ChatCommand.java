@@ -1,3 +1,21 @@
+/**
+ * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
+ * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
+ * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ *
+ * 	This program is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
+ *
+ * 	This program is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
+ *
+ * 	You should have received a copy of the GNU General Public License
+ * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.kaward.spongechat;
 
 import java.util.UUID;
@@ -16,28 +34,60 @@ import org.spongepowered.api.util.command.spec.CommandExecutor;
 import me.kaward.spongechat.events.ChannelMessageEvent;
 import me.kaward.spongechat.lang.Language;
 
+/**
+ * <p>
+ * This class handle only the commands per channels (e.g. <b>/g {message here}</b>)
+ * </p>
+ *
+ * <p>
+ * This class don't contains any API for register commands or something of type
+ * </p>
+ *
+ * @category Command Handlering
+ *
+ */
 public class ChatCommand implements CommandExecutor
 {
 
 	private UUID random = null;
 	private Channel channel = null;
 
+	/**
+	 * <p>
+	 * Constructor to set the channel for executor of command.
+	 * </p>
+	 *
+	 * @param channel The channel of command.
+	 */
 	public ChatCommand(Channel channel)
 	{
 		this.channel = channel;
 		this.random = UUID.randomUUID();
 	}
 
+	/**
+	 *
+	 * @return The channel of command.
+	 */
 	public Channel getChannel()
 	{
 		return channel;
 	}
 
+	/**
+	 *
+	 * @return The Universal Unique Identification (UUID) of this ChatCommand instance.
+	 */
 	public UUID getIdentification()
 	{
 		return random;
 	}
 
+	/**
+	 * <p>
+	 * Handle the command of channel, to send message/etc.
+	 * </p>
+	 */
 	@Override
 	public CommandResult execute(CommandSource sender, CommandContext contesto) throws CommandException
 	{
