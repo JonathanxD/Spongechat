@@ -61,7 +61,6 @@ public class Configuration implements Serializable, Cloneable
 	public Configuration(File file)
 	{
 		this.file = file;
-		cs.setBuilder(builder); //Configurar o builder para ser feita a transformação de variaveis
 	}
 
 	public <Value> Value section(String key)

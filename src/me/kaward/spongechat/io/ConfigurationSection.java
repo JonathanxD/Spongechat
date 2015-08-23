@@ -215,14 +215,6 @@ final class ConfigurationSection {
 		
 	}
 
-	protected void updateSentence(String sentence) {
-		;
-	}
-
-	protected void setBuilder(HashMap<String, Object> builder) {
-	}
-
-	
 	protected String getResultOfTransform() {
 		return this.sectionTransform;
 	}
