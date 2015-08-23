@@ -1,19 +1,20 @@
 /**
- *  Spongechat — A new Powered Chat System for SpongePowered Minecraft API.
- *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
+ * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
+ * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * 	This program is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * 	This program is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 	You should have received a copy of the GNU General Public License
+ * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package me.kaward.spongechat;
 
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.util.command.CommandException;
 import org.spongepowered.api.util.command.CommandResult;
@@ -36,12 +38,11 @@ import me.kaward.spongechat.logs.ChannelLogs;
 import me.kaward.spongechat.providers.IChannelManager;
 
 /**
- * [ENGLISGH] Here you get API to manage (mute, unmute, register channel commands and more) channels.
+ * <p>
+ * This class is used to handle channels with API. Here, you can mute and unmute channels, register channel's commands, etc.
+ * </p>
  *
- * [PORTUGUESE] Aqui você encontra API para gerenciar (mutar, desmutar, registrar comandos de canais e mais) de canais.
- *
- * @author Pitter Thog (Kaward) <https://github.com/Kaward/>
- * @category Channel Management and Services
+ * @category Channel Handlering
  *
  */
 public class ChannelManager implements IChannelManager
@@ -53,6 +54,7 @@ public class ChannelManager implements IChannelManager
 
 	protected ChannelManager()
 	{
+		this.setMuted(Channels.DEFAULT_CHANNEL, false);
 	}
 
 	@Override
@@ -128,20 +130,13 @@ public class ChannelManager implements IChannelManager
 	}
 
 	@Override
-	public void clear(Channel channel)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean isMuted(Channel channel)
 	{
 		return mutes.contains(channel);
 	}
 
 	@Override
-	public ChannelLogs getLogs()
+	public ChannelLogs getLogs(Channel channel)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -160,4 +155,19 @@ public class ChannelManager implements IChannelManager
 
 		return map.entrySet();
 	}
+
+	@Override
+	public void clear()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void clear(Player player)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
 }
