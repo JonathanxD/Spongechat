@@ -25,10 +25,12 @@ public class Configuration implements Serializable, Cloneable
 	private List<String> parser = new ArrayList<String>();
 	private HashMap<String, Object> builder = new HashMap<String, Object>();
 	private File file = null;
-
+	private static final String desktop = System.getProperty("user.home")+(System.getProperty("os.name").toLowerCase().contains("win") ? File.separator+"Desktop" : "");
+	private final ConfigurationSection cs = new ConfigurationSection();;
+	
 	public static void main(String[] args) throws IOException
 	{
-		File file = new File("C:\\Users\\Joao Pedro\\Desktop\\tests.yml");
+		File file = new File(desktop, "tests.yml");
 		Configuration c = new Configuration(file).parse();
 
 		Logger log = Logger.getLogger("Configuration");
@@ -36,14 +38,16 @@ public class Configuration implements Serializable, Cloneable
 
 		Scanner s = new Scanner(System.in);
 		String key = s.nextLine();
-		log.info("Resultado [" + key + ": " + c.builder.get(key) + "]\n");
+		log.info("Resultado [" + key + ": " + c.builder.get(key) + "]\n");		
 
 		log.info("Agora, digite algo para MUDAR:");
 		String keychange = s.nextLine();
 
 		log.info("Entendi.. Digite o novo valor:");
 		String valuechange = s.nextLine();
-
+		if(valuechange.isEmpty()){
+			valuechange = null;
+		}
 		c.set(keychange, valuechange);
 
 		log.info("Digite algo para salvar o arquivo.");
@@ -57,6 +61,7 @@ public class Configuration implements Serializable, Cloneable
 	public Configuration(File file)
 	{
 		this.file = file;
+		cs.setBuilder(builder); //Configurar o builder para ser feita a transformação de variaveis
 	}
 
 	public <Value> Value section(String key)
@@ -83,14 +88,18 @@ public class Configuration implements Serializable, Cloneable
 
 		@SuppressWarnings("unused")
 		Logger log = Logger.getLogger("Configuration");
-
+		
+		cs.setNewSectionTransform(parser);
+		parser = cs.formSection().formResult();
 		for (String parser0 : parser)
-		{
+		{			
+			
+			
 			if (!parser0.startsWith("#") && !parser0.isEmpty())
 			{
 				String k = parser0.split(":")[0];
 				String v = parser0.split(k)[1];
-
+	
 				if (v.startsWith(" "))
 				{
 					v = v.replaceFirst(" ", "");
@@ -105,10 +114,10 @@ public class Configuration implements Serializable, Cloneable
 				{
 					v = v.replaceFirst(" : ", "");
 				}
-
 				builder.put(k, v);
 			}
 		}
+		
 
 		return this;
 	}
@@ -133,7 +142,8 @@ public class Configuration implements Serializable, Cloneable
 			{
 				String k = map.split(":")[0];
 				log.info("---> key = " + k);
-				String v = map.split(k + ":")[1];
+				
+				String v = map.split(k + ":").length == 1 ? v = "" : map.split(k + ":")[1]; //Fix For Sections
 
 				if (v.startsWith(" "))
 				{
@@ -161,11 +171,14 @@ public class Configuration implements Serializable, Cloneable
 			}
 		}
 
+		content = cs.sectionTransform(content).getResultOfTransform(); //By Jonathan
 		writer.write(content);
 		writer.flush();
 		writer.close();
 	}
 
+	
+	
 	public void set(String key, Object value)
 	{
 		builder.put(key, value);
@@ -200,5 +213,6 @@ public class Configuration implements Serializable, Cloneable
 	{
 		return Float.parseFloat(String.valueOf(builder.get(key)));
 	}
+		
 
 }
