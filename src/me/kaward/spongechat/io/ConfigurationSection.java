@@ -2,6 +2,7 @@ package me.kaward.spongechat.io;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -48,18 +49,18 @@ final class ConfigurationSection {
 				int y = 0;
 				HashMap<Integer, String> indexes = new HashMap<>();
 				if(doTask == TASK_SECTION_TRANSFORM || doTask == TASK_DIRETIVE_CHECK){
-					if(doTask == TASK_DIRETIVE_CHECK){
-						
-						if(args[0].equals(current.split(":")[0])){
-							
-							return (T) Boolean.TRUE;
-						}
-					}
 					if((!hasIdent(current) && (next == null || !hasIdent(next)))){
-						
+						if(doTask == TASK_DIRETIVE_CHECK){
+							
+							if(args[0].equals(current.split(":")[0])){
+								
+								return (T) Boolean.TRUE;
+							}
+						}						
 						if(doTask == TASK_SECTION_TRANSFORM)tmp += current + "\n";
 					}
 				}
+				HashMap<String, String> directiveToCreate = new HashMap<>();
 				if(!hasIdent(current) && current.split(":").length == 1){
 					
 					String main = null;
@@ -101,32 +102,42 @@ final class ConfigurationSection {
 							}else{
 								if(doTask == TASK_SECTION_TRANSFORM){
 									tmp += nextCurr + "\n";
-									String key = getHierarchy(indexes, nextCurr, main)+"."+nextCurr.replace(" ", "").split(":")[0];
-									for(Map.Entry<String, String> ms : map.entrySet()){
+									Iterator<Map.Entry<String, String>> vs = map.entrySet().iterator();
+									while(vs.hasNext()){
+										Map.Entry<String, String> ms = vs.next();
 										if(sectionExists(ms.getKey()) || diretiveExists(ms.getKey())){
 											//TODO
 										}else{
-											if(ms.getKey().startsWith(key)){
-												if(sectionExists(ms.getKey()) || diretiveExists(ms.getKey())){
-													throw new UnsupportedOperationException("Cannot set NEW value to a existing section/diretive, try set it to null");
-												}
-												String kay = ident+ms.getKey().split(key+"\\.")[1];
-												
-												String laast = null;
-												for(int xx = 0; xx < kay.split("\\.").length; ++xx){
-													String ks = kay.split("\\.")[xx];
-													
-													ks = (laast == null ? getIdents(kay) : getIdents(laast)) + (xx != 0 ? ident : "")+ks;
-													if(xx == kay.split("\\.").length-1){
-														tmp += (ks += ":"+ms.getValue()) +"\n";
-													}else{
-														tmp += ks + ":"+ "\n";	
+											System.out.println("Diretive: "+ms.getKey()+" "+diretiveExists(ms.getKey()));
+											if(!diretiveExists(ms.getKey())){
+												directiveToCreate.put(ms.getKey(), ms.getValue());
+												vs.remove();
+											}else
+											if(!sectionExists(ms.getKey())){
+												String key = getHierarchy(indexes, nextCurr, main)+"."+nextCurr.replace(" ", "").split(":")[0];
+												if(ms.getKey().startsWith(key)){
+													if(sectionExists(ms.getKey()) || diretiveExists(ms.getKey())){
+														throw new UnsupportedOperationException("Cannot set NEW value to a existing section/diretive, try set it to null");
 													}
-															
-															
-													laast = ks;														
+													String kay = ident+ms.getKey().split(key+"\\.")[1];
 													
+													String laast = null;
+													for(int xx = 0; xx < kay.split("\\.").length; ++xx){
+														String ks = kay.split("\\.")[xx];
+														
+														ks = (laast == null ? getIdents(kay) : getIdents(laast)) + (xx != 0 ? ident : "")+ks;
+														if(xx == kay.split("\\.").length-1){
+															tmp += (ks += ":"+ms.getValue()) +"\n";
+														}else{
+															tmp += ks + ":"+ "\n";	
+														}
+																
+																
+														laast = ks;														
+														
+													}
 												}
+												vs.remove();
 											}
 										}
 									}
@@ -136,8 +147,15 @@ final class ConfigurationSection {
 						
 					}catch(ArrayIndexOutOfBoundsException exception){
 					}					
-
+					if(doTask == TASK_SECTION_TRANSFORM){
+						Iterator<Map.Entry<String, String>> vs = directiveToCreate.entrySet().iterator();
+						while(vs.hasNext()){
+							Map.Entry<String, String> curr = vs.next();
+							tmp += curr.getKey()+":"+curr.getValue() +"\n";
+						}
+					}
 				}
+				
 				if(doTask == TASK_FORM_SECTION) if((!hasIdent(current) && (next == null || !hasIdent(next)) )){
 					parser.add(current);
 				}
@@ -149,6 +167,7 @@ final class ConfigurationSection {
 		return null;
 		
 	}
+		
 	
 
 	private boolean isNull(String value) {
