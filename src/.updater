@@ -1,0 +1,10 @@
+# This file provide autoupdater system, edit with caution.
+# If you don't want to show update's notification for admins, remove '  - notify admins' from the list.
+
+Version: 1.0.1
+Updater:
+  - @check http://sponge.sparkpowered.net/updater?plugin=Spongechat&action=check&v={@version}
+  - @downl http://sponge.sparkpowered.net/updater?plugin=Spongechat&action=download&from={@version}
+  - @.updt http://sponge.sparkpowered.net/.updater/updater?plugin=Spongechat
+  - notify admins
+ 
