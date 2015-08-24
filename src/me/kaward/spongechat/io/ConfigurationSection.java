@@ -132,18 +132,87 @@ final class ConfigurationSection {
 						String nextCurr;
 						while((nextCurr = split[x+(++y)]) != null){ // Go to next element
 							//String nextCurr = split[x+y]; // Get next element
+							
+							/*if(removeIdents(nextCurr).startsWith("-")){ // Check if is List<?>
+								System.out.println("List: "+nextCurr);
+								while((nextCurr = split[x+(++y)]).startsWith("-")){
+									
+								}
+								System.out.println("Jump: "+nextCurr);
+								continue;
+								
+								// Is List
+								// More complex process. Next task, DO IT.
+							}*/
 							if(hasIdent(nextCurr)){ //Is section element
 								//Is section element
 								indexes.put(getIdentsInt(nextCurr)+1, nextCurr); // Put to indexes map
-							}
-							if(removeIdents(nextCurr).startsWith("-")){ // Check if is List<?>
-								System.out.println("List: "+nextCurr);
-								// Is List
-								// More complex process. Next task, DO IT.
-							}
-							if(nextCurr.split(":").length != 1){//Check if is a section (= 1) or a directive (!= 1)
-								String value = nextCurr.split(":")[1]; // Get value
+							}	
+							/*if(removeIdents(split[x+(y+1)]).startsWith("-")){
+								System.out.println("List: "+nextCurr+" Task: "+doTask);
+								String theFinal = "";
+								theFinal += nextCurr + (doTask == TASK_SECTION_TRANSFORM ? "\n" : "");
+								if(doTask == TASK_SECTION_TRANSFORM){
+									tmp += theFinal;
+								}
+								String formingList = "-{[";
+								while(removeIdents((nextCurr = split[x+(++y)])).startsWith("-")){
+									if(doTask == TASK_SECTION_TRANSFORM){
+										tmp += nextCurr + "\n";
+										
+									}else if(doTask == TASK_FORM_SECTION){
+										formingList += removeIdents(nextCurr) + ", ";
+									}
+
+									
+								}
+								if(doTask == TASK_FORM_SECTION){
+									if(formingList.length() > 3){
+										formingList = getHierarchy(indexes, nextCurr, main)+"."+removeIdents(theFinal) + formingList.substring(0, formingList.length()-2);
+									}
+									formingList += "]}-";
+									parser.add(formingList);
+									tmp += formingList + "\n";
+									
+								}
+								--y;
+								System.out.println("Parser: "+parser);
+								continue;
+								
+							}*/
+							if(nextCurr.split(":").length != 1 || (nextCurr.split(":").length == 1 && removeIdents(split[x+(y+1)]).startsWith("-"))){//Check if is a section (= 1) or a directive (!= 1)								
+								String value = nextCurr.split(":").length != 1 ? nextCurr.split(":")[1] : null; // Get value
 								String key = hasIdent(nextCurr) ? getHierarchy(indexes, nextCurr, main)+"."+nextCurr.replace(" ", "").split(":")[0] : removeIdents(nextCurr).split(":")[0]; // Get key unformatted (like: One.Two.Three)																
+								if(removeIdents(split[x+(y+1)]).startsWith("-")){
+									String theFinal = "";
+									theFinal += nextCurr + (doTask == TASK_SECTION_TRANSFORM ? "\n" : "");
+									if(doTask == TASK_SECTION_TRANSFORM){
+										tmp += theFinal;
+									}
+									String formingList = "-{[\n ";
+									while(removeIdents((nextCurr = split[x+(++y)])).startsWith("-")){
+										if(doTask == TASK_SECTION_TRANSFORM){
+											tmp += nextCurr + "\n";
+											
+										}else if(doTask == TASK_FORM_SECTION){
+											formingList += removeIdents(nextCurr) + "\n ";
+										}
+
+										
+									}
+									if(doTask == TASK_FORM_SECTION){
+										if(!formingList.equals("-{[\n ")){
+											formingList = key.substring(0, key.length()-1)+removeIdents(theFinal) + formingList.substring(0, formingList.length()-2);
+										}
+										formingList += "\n]}-";
+										parser.add(formingList);
+										tmp += formingList + "\n";
+										
+									}
+									--y;
+									continue;
+									
+								}
 								if(removeIdents(key).startsWith("[") && removeIdents(key).endsWith("]")){ // Check if is Array[]
 									// Is Array
 									// Will be processed by Configuration class.
@@ -223,7 +292,8 @@ final class ConfigurationSection {
 						}
 						
 					}catch(ArrayIndexOutOfBoundsException exception){
-					}										
+					}		
+					x = x+(y-1);
 				}
 				if(doTask == TASK_SECTION_TRANSFORM){
 					Iterator<Map.Entry<String, String>> vs = directiveToCreate.entrySet().iterator();
