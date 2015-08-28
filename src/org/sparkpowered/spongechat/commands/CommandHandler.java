@@ -16,7 +16,7 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.commands;
 
 import org.sparkpowered.spongechat.context.Context;
 import org.sparkpowered.spongechat.context.ContextList;
@@ -39,34 +39,34 @@ import org.spongepowered.api.util.command.spec.CommandExecutor;
 public class CommandHandler
 {
 
-	protected CommandHandler()
+	public CommandHandler()
 	{
 	}
 
-	protected CommandExecutor SpongechatCommandExecutor = new CommandExecutor()
+	public CommandExecutor SpongechatCommandExecutor = new CommandExecutor()
 	{
 		@Override
-		public CommandResult execute(CommandSource cs, CommandContext cc) throws CommandException
+		public CommandResult execute(final CommandSource cs, final CommandContext cc) throws CommandException
 		{
 			cs.sendMessage(Texts.of("Available commands for Spongechat (You can click on command to get description and get how-use):"));
 			return HelpCommandExecutor.execute(cs, cc);
 		}
 	};
 
-	protected CommandExecutor HelpCommandExecutor = new CommandExecutor()
+	public CommandExecutor HelpCommandExecutor = new CommandExecutor()
 	{
 		@Override
-		public CommandResult execute(CommandSource cs, CommandContext cc) throws CommandException
+		public CommandResult execute(final CommandSource cs, final CommandContext cc) throws CommandException
 		{
 			// TODO Auto-generated method stub
 			return null;
 		}
 	};
 
-	protected CommandExecutor CreateChannelCommandExecutor = new CommandExecutor()
+	public CommandExecutor CreateChannelCommandExecutor = new CommandExecutor()
 	{
 		@Override
-		public CommandResult execute(CommandSource cs, CommandContext cc) throws CommandException
+		public CommandResult execute(final CommandSource cs, final CommandContext cc) throws CommandException
 		{
 			if (cs instanceof ConsoleSource)
 			{
@@ -89,50 +89,50 @@ public class CommandHandler
 		}
 	};
 
-	protected CommandExecutor RemoveChannelCommandExecutor = new CommandExecutor()
+	public CommandExecutor RemoveChannelCommandExecutor = new CommandExecutor()
 	{
 		@Override
-		public CommandResult execute(CommandSource cs, CommandContext cc) throws CommandException
+		public CommandResult execute(final CommandSource cs, final CommandContext cc) throws CommandException
 		{
 			// TODO Auto-generated method stub
 			return null;
 		}
 	};
 
-	protected CommandExecutor MutePlayerCommandExecutor = new CommandExecutor()
+	public CommandExecutor MutePlayerCommandExecutor = new CommandExecutor()
 	{
 		@Override
-		public CommandResult execute(CommandSource cs, CommandContext cc) throws CommandException
+		public CommandResult execute(final CommandSource cs, final CommandContext cc) throws CommandException
 		{
 			// TODO Auto-generated method stub
 			return null;
 		}
 	};
 
-	protected CommandExecutor UnmutePlayerCommandExecutor = new CommandExecutor()
+	public CommandExecutor UnmutePlayerCommandExecutor = new CommandExecutor()
 	{
 		@Override
-		public CommandResult execute(CommandSource cs, CommandContext cc) throws CommandException
+		public CommandResult execute(final CommandSource cs, final CommandContext cc) throws CommandException
 		{
 			// TODO Auto-generated method stub
 			return null;
 		}
 	};
 
-	protected CommandExecutor MuteChannelCommandExecutor = new CommandExecutor()
+	public CommandExecutor MuteChannelCommandExecutor = new CommandExecutor()
 	{
 		@Override
-		public CommandResult execute(CommandSource cs, CommandContext cc) throws CommandException
+		public CommandResult execute(final CommandSource cs, final CommandContext cc) throws CommandException
 		{
 			// TODO Auto-generated method stub
 			return null;
 		}
 	};
 
-	protected CommandExecutor UnmuteChannelCommandExecutor = new CommandExecutor()
+	public CommandExecutor UnmuteChannelCommandExecutor = new CommandExecutor()
 	{
 		@Override
-		public CommandResult execute(CommandSource cs, CommandContext cc) throws CommandException
+		public CommandResult execute(final CommandSource cs, final CommandContext cc) throws CommandException
 		{
 			// TODO Auto-generated method stub
 			return null;

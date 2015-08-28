@@ -1,3 +1,21 @@
+/**
+ * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
+ * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
+ * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ *
+ * 	This program is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
+ *
+ * 	This program is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
+ *
+ * 	You should have received a copy of the GNU General Public License
+ * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.sparkpowered.spongechat.io;
 
 import java.io.PrintStream;
@@ -8,7 +26,7 @@ public class KeycharErrorException extends Exception
 
 	private static final long serialVersionUID = -6515894210902250033L;
 
-	public KeycharErrorException(char c)
+	public KeycharErrorException(final char c)
 	{
 		super("Unsupported char match in key: " + c);
 	}
@@ -44,7 +62,7 @@ public class KeycharErrorException extends Exception
 	}
 
 	@Override
-	public synchronized Throwable initCause(Throwable arg0)
+	public synchronized Throwable initCause(final Throwable arg0)
 	{
 		return super.initCause(arg0);
 	}
@@ -56,13 +74,13 @@ public class KeycharErrorException extends Exception
 	}
 
 	@Override
-	public void printStackTrace(PrintStream arg0)
+	public void printStackTrace(final PrintStream arg0)
 	{
 		super.printStackTrace(arg0);
 	}
 
 	@Override
-	public void printStackTrace(PrintWriter arg0)
+	public void printStackTrace(final PrintWriter arg0)
 	{
 		super.printStackTrace(arg0);
 	}

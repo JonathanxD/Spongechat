@@ -16,14 +16,37 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.formats;
 
-public class Options
+import java.io.Serializable;
+
+/**
+ * <p>
+ * Esta interface serve para representação de dados de um {@link Format}.
+ * </p>
+ *
+ * @see org.sparkpowered.spongechat.formats.FormatManager O manipulador de Formatos
+ *
+ */
+public abstract interface Format extends Serializable
 {
 
-	// > /spongechat options setdefault <name>
-	// > /spongechat options setlanguage <file.txt> — #Não agora
-	// > /spongechat options update <check/download>
-	// >
+	/**
+	 *
+	 * @return Retorna a keyword do Format. Exemplo: {tag_here}, a keyword é tag_here.
+	 */
+	public String tag();
+
+	/**
+	 *
+	 * @return Retorna o conteúdo do Format. Exemplo: <code>[{nick}] {prefix} {username}: {msg}</code>
+	 */
+	public String content();
+
+	/**
+	 *
+	 * @return Retorna o tipo do Format. (1) para formato de canal, e (2) para formato de substituição no chat
+	 */
+	public int type();
 
 }

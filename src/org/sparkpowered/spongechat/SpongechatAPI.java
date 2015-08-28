@@ -20,6 +20,10 @@ package org.sparkpowered.spongechat;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.sparkpowered.spongechat.channels.Channel;
+import org.sparkpowered.spongechat.channels.ChannelManager;
+import org.sparkpowered.spongechat.channels.Channels;
+
 /**
  * This class provides access for all API's existents on the Spongechat. Esta classe provém acesso a todas as API's existentes no Spongechat.
  *

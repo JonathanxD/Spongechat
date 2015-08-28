@@ -1,3 +1,21 @@
+/**
+ * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
+ * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
+ * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ *
+ * 	This program is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
+ *
+ * 	This program is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
+ *
+ * 	You should have received a copy of the GNU General Public License
+ * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.sparkpowered.spongechat;
 
 import java.util.ArrayList;
@@ -16,8 +34,8 @@ import org.sparkpowered.spongechat.providers.ILoggerManager;
 public class LoggerManager implements ILoggerManager
 {
 
-	private HashMap<String, List<UUID>> center = new HashMap<String, List<UUID>>();
-	private HashMap<UUID, LogItem> items = new HashMap<UUID, LogItem>();
+	private final HashMap<String, List<UUID>> center = new HashMap<String, List<UUID>>();
+	private final HashMap<UUID, LogItem> items = new HashMap<UUID, LogItem>();
 
 	protected LoggerManager()
 	{
@@ -25,9 +43,9 @@ public class LoggerManager implements ILoggerManager
 
 	@Override
 	@Nullable
-	public LogItem item(String group, UUID uuid)
+	public LogItem item(final String group, final UUID uuid)
 	{
-		for (Map.Entry<UUID, LogItem> item : items.entrySet())
+		for (final Map.Entry<UUID, LogItem> item : items.entrySet())
 		{
 			if (item.getKey().equals(uuid))
 			{
@@ -43,7 +61,7 @@ public class LoggerManager implements ILoggerManager
 	public LogItem add(final String group, final LogData... data)
 	{
 		final UUID random = UUID.randomUUID();
-		LogItem logData = new LogItem()
+		final LogItem logData = new LogItem()
 		{
 			@Override
 			public UUID id()
@@ -54,9 +72,9 @@ public class LoggerManager implements ILoggerManager
 			@Override
 			@Nullable
 			@SuppressWarnings("unchecked")
-			public <T> T get(String name)
+			public <T> T get(final String name)
 			{
-				for (LogData c : data())
+				for (final LogData c : data())
 				{
 					if (c.getName().equals(name))
 					{
@@ -70,8 +88,8 @@ public class LoggerManager implements ILoggerManager
 			@Override
 			public List<LogData> data()
 			{
-				List<LogData> data0 = new ArrayList<LogData>();
-				for (LogData logdata : data)
+				final List<LogData> data0 = new ArrayList<LogData>();
+				for (final LogData logdata : data)
 				{
 					data0.add(logdata);
 				}
@@ -105,13 +123,13 @@ public class LoggerManager implements ILoggerManager
 	}
 
 	@Override
-	public List<UUID> getLogsOf(String group)
+	public List<UUID> getLogsOf(final String group)
 	{
 		return center.get(group);
 	}
 
 	@Override
-	public void remove(LogItem item)
+	public void remove(final LogItem item)
 	{
 		items.remove(item.id());
 	}

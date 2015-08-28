@@ -16,11 +16,12 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.channels;
 
 import java.io.Serializable;
 import java.util.UUID;
 
+import org.sparkpowered.spongechat.commands.ChatCommand;
 import org.spongepowered.api.util.command.spec.CommandSpec;
 
 /**
@@ -159,7 +160,7 @@ public class Channel implements Serializable
 	 *
 	 * @return The CommandSpec of the Channel
 	 * @see org.spongepowered.api.util.command.spec.CommandSpec CommandSpec
-	 * @see org.sparkpowered.spongechat.ChatCommand Command per channel handlering
+	 * @see org.sparkpowered.spongechat.commands.ChatCommand Command per channel handlering
 	 */
 	public CommandSpec getChannelCommand()
 	{

@@ -18,7 +18,7 @@
  */
 package org.sparkpowered.spongechat.providers;
 
-import org.sparkpowered.spongechat.Message;
+import org.sparkpowered.spongechat.messages.Message;
 import org.spongepowered.api.entity.player.Player;
 
 /**

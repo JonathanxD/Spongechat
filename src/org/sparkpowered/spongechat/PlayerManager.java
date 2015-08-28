@@ -1,19 +1,20 @@
 /**
- *  Spongechat — A new Powered Chat System for SpongePowered Minecraft API.
- *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
+ * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
+ * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * 	This program is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * 	This program is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 	You should have received a copy of the GNU General Public License
+ * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.sparkpowered.spongechat;
 
@@ -27,6 +28,8 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import org.sparkpowered.spongechat.channels.Channel;
+import org.sparkpowered.spongechat.channels.Channels;
 import org.sparkpowered.spongechat.providers.IPlayerManager;
 import org.spongepowered.api.entity.player.Player;
 
@@ -51,7 +54,7 @@ public class PlayerManager implements IPlayerManager
 	}
 
 	@Override
-	public void setFocus(Player player, Channel channel)
+	public void setFocus(final Player player, final Channel channel)
 	{
 		assert(player != null) : "Player can't be null.";
 		assert(channel != null) : "Channel can't be null.";
@@ -59,7 +62,7 @@ public class PlayerManager implements IPlayerManager
 	}
 
 	@Override
-	public void setPlayerTotalMessages(Player player, Integer total)
+	public void setPlayerTotalMessages(final Player player, final Integer total)
 	{
 		assert(player != null) : "Player can't be null.";
 		assert(total >= 0) : "Number can't be < 0";
@@ -68,7 +71,7 @@ public class PlayerManager implements IPlayerManager
 
 	@Nullable
 	@Override
-	public int getPlayerTotalMessages(Player player)
+	public int getPlayerTotalMessages(final Player player)
 	{
 		assert(player != null) : "Player can't be null.";
 		return (count.containsKey(player.getUniqueId()) ? count.get(player.getUniqueId()) : 0);
@@ -76,34 +79,34 @@ public class PlayerManager implements IPlayerManager
 
 	@Nullable
 	@Override
-	public Channel getFocusedChannel(Player player)
+	public Channel getFocusedChannel(final Player player)
 	{
 		assert(player != null) : "Player can't be null.";
 		return focus.get(player.getUniqueId());
 	}
 
 	@Override
-	public boolean isAfk(Player player)
+	public boolean isAfk(final Player player)
 	{
 		assert(player != null) : "Player can't be null.";
 		return afk.contains(player.getUniqueId());
 	}
 
-	public boolean isAfk(UUID uuid)
+	public boolean isAfk(final UUID uuid)
 	{
 		assert(uuid != null) : "UUID can't be null.";
 		return afk.contains(uuid);
 	}
 
 	@Override
-	public int activeChannels(Player player)
+	public int activeChannels(final Player player)
 	{
 		assert(player != null) : "Player can't be null.";
 		return (channels.containsKey(player.getUniqueId()) ? channels.get(player.getUniqueId()).size() : 0);
 	}
 
 	@Override
-	public Collection<Channel> getActiveChannels(Player player)
+	public Collection<Channel> getActiveChannels(final Player player)
 	{
 		assert(player != null) : "Player can't be null.";
 
@@ -113,14 +116,14 @@ public class PlayerManager implements IPlayerManager
 		}
 		else
 		{
-			Set<Channel> c = new HashSet<Channel>();
+			final Set<Channel> c = new HashSet<Channel>();
 			channels.put(player.getUniqueId(), c);
 			return channels.get(player.getUniqueId());
 		}
 	}
 
 	@Override
-	public void setPlayerAfk(Player player, boolean isafk)
+	public void setPlayerAfk(final Player player, final boolean isafk)
 	{
 		assert(player != null) : "Player can't be null.";
 
@@ -142,7 +145,7 @@ public class PlayerManager implements IPlayerManager
 	 * @param channel An instance of channel to player be muted.
 	 */
 	@Override
-	public void mutePlayer(Player player, Channel channel, boolean mute)
+	public void mutePlayer(final Player player, final Channel channel, final boolean mute)
 	{
 		assert(player != null) : "Player can't be null.";
 		assert(channel != null) : "Channel can't be null.";
@@ -171,7 +174,7 @@ public class PlayerManager implements IPlayerManager
 	 * @param mute <code>true</code> for mute, and <code>false</code> to unmute
 	 */
 	@Override
-	public void mutePlayer(Player player, boolean mute)
+	public void mutePlayer(final Player player, final boolean mute)
 	{
 		assert(player != null) : "Player can't be null.";
 
@@ -186,7 +189,7 @@ public class PlayerManager implements IPlayerManager
 	}
 
 	@Override
-	public boolean isMuted(Player player, Channel channel)
+	public boolean isMuted(final Player player, final Channel channel)
 	{
 		assert(player != null) : "Player can't be null.";
 		assert(channel != null) : "Channel can't be null.";
@@ -196,20 +199,20 @@ public class PlayerManager implements IPlayerManager
 		}
 		else
 		{
-			Collection<Channel> c = mutes.get(player.getUniqueId());
+			final Collection<Channel> c = mutes.get(player.getUniqueId());
 			return c.contains(channel);
 		}
 	}
 
 	@Override
-	public Collection<Entry<Channel, Boolean>> isMuted(Player player, Collection<Channel> channels)
+	public Collection<Entry<Channel, Boolean>> isMuted(final Player player, final Collection<Channel> channels)
 	{
 		assert(player != null) : "Player can't be null.";
 		assert(channels != null) : "The channel's collection can't be null";
-		Map<Channel, Boolean> map = new HashMap<Channel, Boolean>();
-		for (Channel c : channels)
+		final Map<Channel, Boolean> map = new HashMap<Channel, Boolean>();
+		for (final Channel c : channels)
 		{
-			boolean m = isMuted(player, c);
+			final boolean m = isMuted(player, c);
 			map.put(c, m);
 		}
 

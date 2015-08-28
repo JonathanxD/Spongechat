@@ -23,9 +23,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import org.sparkpowered.spongechat.Channel;
-import org.sparkpowered.spongechat.Message;
 import org.sparkpowered.spongechat.SpongechatAPI;
+import org.sparkpowered.spongechat.channels.Channel;
+import org.sparkpowered.spongechat.messages.Message;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.event.AbstractEvent;
 import org.spongepowered.api.event.Cancellable;

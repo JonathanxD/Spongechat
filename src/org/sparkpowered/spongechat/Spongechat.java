@@ -1,19 +1,20 @@
 /**
- *  Spongechat — A new Powered Chat System for SpongePowered Minecraft API.
- *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
+ * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
+ * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * 	This program is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * 	This program is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 	You should have received a copy of the GNU General Public License
+ * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.sparkpowered.spongechat;
 
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import org.sparkpowered.spongechat.channels.ChannelManager;
+import org.sparkpowered.spongechat.commands.CommandHandler;
 import org.sparkpowered.spongechat.providers.IChannelManager;
 import org.sparkpowered.spongechat.providers.ILoggerManager;
 import org.sparkpowered.spongechat.providers.IPlayerManager;
@@ -82,10 +85,10 @@ public class Spongechat implements ISpongechat
 	protected CommandSpec SpongechatCommand = CommandSpec.builder().description(Texts.of("Command to handle Spongechat.")).permission("spongechat.cmd.help").executor(commands.SpongechatCommandExecutor).child(HelpCommand, "help", "-h", "ajuda", "commands", "comandos", "-c").child(CreateChannelCommand, "createchannel", "cc", "-cc", "criarcanal", "createspongechannel").child(RemoveChannelCommand, "removechannel", "rc", "-rc", "removercanal", "removespongechannel").child(MutePlayerCommand, "muteplayer", "mp", "-mp", "mutarjogador", "-mj", "mj").child(UnmutePlayerCommand, "unmuteplayer", "ump", "-ump", "desmutarjogador", "-dsj", "dsj").child(MuteChannelCommand, "mutechannel", "mc", "-mc", "mutarcanal", "-mtc", "mtc").child(UnmuteChannelCommand, "unmutechannel", "umtc", "desmutarcanal", "-dsmc", "dsmc").build();
 
 	@Inject
-	private Logger logger = null;
+	private final Logger logger = null;
 
 	@Subscribe(order = Order.FIRST)
-	public void onInit(PreInitializationEvent event) throws IOException, SQLException, ProviderExistsException, ClassNotFoundException
+	public void onInit(final PreInitializationEvent event) throws IOException, SQLException, ProviderExistsException, ClassNotFoundException
 	{
 		Spongechat.sponge = event.getGame();
 		logger.info("Initing the Spongechat, please, be patient.");
@@ -114,7 +117,7 @@ public class Spongechat implements ISpongechat
 	}
 
 	@Subscribe
-	public void onStop(ServerStoppingEvent event)
+	public void onStop(final ServerStoppingEvent event)
 	{
 
 	}

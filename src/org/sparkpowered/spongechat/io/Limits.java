@@ -1,11 +1,29 @@
+/**
+ * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
+ * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
+ * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ *
+ * 	This program is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
+ *
+ * 	This program is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
+ *
+ * 	You should have received a copy of the GNU General Public License
+ * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.sparkpowered.spongechat.io;
 
 public class Limits
 {
 
 	public static final String SECTION_SEPARATOR = "  ";
-	public static final String[] ALPHABET = { "A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g", "H", "h", "I", "i", "J", "j", "K", "k", "L", "l", "M", "m", "N", "n", "O", "o", "P", "p", "Q", "q", "R", "r", "T", "t", "U", "u", "V", "v", "W", "w", "Y", "y", "X", "x", "Z", "z" };
-	public static final String[] NUMBERS = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "¹", "²", "³" };
-	public static final String[] ACCEPTED_KEY_SIMBOLS = { "°", "ª", "º", "$", "/", "_" };
+	public static final String ALPHABET = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrTtUuVvWwYyXxZz";;
+	public static final String NUMBERS = "0123456789¹²³";
+	public static final String ACCEPTED_KEY_SIMBOLS = "°ªº$/_";
 
 }

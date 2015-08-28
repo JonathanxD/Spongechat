@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
-import org.sparkpowered.spongechat.Channel;
+import org.sparkpowered.spongechat.channels.Channel;
 import org.spongepowered.api.entity.player.Player;
 
 /**

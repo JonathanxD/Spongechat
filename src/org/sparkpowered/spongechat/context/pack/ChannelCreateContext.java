@@ -22,9 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.sparkpowered.spongechat.Channel;
 import org.sparkpowered.spongechat.Spongechat;
 import org.sparkpowered.spongechat.SpongechatAPI;
+import org.sparkpowered.spongechat.channels.Channel;
 import org.sparkpowered.spongechat.context.ContextExecutor;
 import org.sparkpowered.spongechat.context.ContextHandler;
 import org.sparkpowered.spongechat.context.ContextList;

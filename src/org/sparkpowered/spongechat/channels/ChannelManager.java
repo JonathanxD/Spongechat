@@ -16,7 +16,7 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.channels;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,6 +27,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import org.sparkpowered.spongechat.Spongechat;
 import org.sparkpowered.spongechat.logs.ChannelLogs;
 import org.sparkpowered.spongechat.providers.IChannelManager;
 import org.spongepowered.api.entity.player.Player;
@@ -55,7 +56,7 @@ public class ChannelManager implements IChannelManager
 	@Nonnull
 	private static Collection<Channel> mutes = new HashSet<Channel>();
 
-	protected ChannelManager()
+	public ChannelManager()
 	{
 	}
 

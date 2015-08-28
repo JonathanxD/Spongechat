@@ -21,7 +21,7 @@ package org.sparkpowered.spongechat.providers;
 import java.util.Collection;
 import java.util.Map;
 
-import org.sparkpowered.spongechat.Channel;
+import org.sparkpowered.spongechat.channels.Channel;
 import org.sparkpowered.spongechat.logs.ChannelLogs;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.util.command.spec.CommandSpec;
@@ -32,7 +32,7 @@ import org.spongepowered.api.util.command.spec.CommandSpec;
  * This class provides the interface of public api for channel management.
  * </p>
  *
- * @see org.sparkpowered.spongechat.ChannelManager
+ * @see org.sparkpowered.spongechat.channels.ChannelManager
  * @category Channel Handlering
  *
  */

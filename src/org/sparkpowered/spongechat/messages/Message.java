@@ -15,12 +15,16 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.messages;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.sparkpowered.spongechat.Locations;
+import org.sparkpowered.spongechat.Spongechat;
+import org.sparkpowered.spongechat.SpongechatAPI;
+import org.sparkpowered.spongechat.channels.Channel;
 import org.sparkpowered.spongechat.events.ChannelMessageEvent;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.text.Text;
@@ -82,7 +86,7 @@ public class Message
 			{
 				if (receivers.contains(p.getUniqueId()) == false)
 				{
-					if (!getChannel().isCrossworld() && Locations.cd(sender.getLocation(), p.getLocation()) <= channel.getDistance())
+					if (!getChannel().isCrossworld() && Locations.distance(sender.getLocation(), p.getLocation()) <= channel.getDistance())
 					{
 						receivers.add(p.getUniqueId());
 						continue;

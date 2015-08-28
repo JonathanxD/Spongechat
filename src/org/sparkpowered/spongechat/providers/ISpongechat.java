@@ -20,7 +20,7 @@ package org.sparkpowered.spongechat.providers;
 
 import java.util.logging.Logger;
 
-import org.sparkpowered.spongechat.CommandHandler;
+import org.sparkpowered.spongechat.commands.CommandHandler;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.util.command.spec.CommandSpec;
 

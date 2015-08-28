@@ -1,3 +1,21 @@
+/**
+ * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
+ * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
+ * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ *
+ * 	This program is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
+ *
+ * 	This program is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
+ *
+ * 	You should have received a copy of the GNU General Public License
+ * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.sparkpowered.spongechat.io;
 
 import java.io.BufferedReader;
@@ -23,29 +41,30 @@ public class Configuration implements Serializable, Cloneable
 
 	private static final long serialVersionUID = -5373342148735836183L;
 	private List<String> parser = new ArrayList<String>();
-	private HashMap<String, Object> builder = new HashMap<String, Object>();
+	private final HashMap<String, Object> builder = new HashMap<String, Object>();
 	private File file = null;
-	private static final String desktop = System.getProperty("user.home")+(System.getProperty("os.name").toLowerCase().contains("win") ? File.separator+"Desktop" : "");
+	private static final String desktop = System.getProperty("user.home") + (System.getProperty("os.name").toLowerCase().contains("win") ? File.separator + "Desktop" : "");
 	private final ConfigurationSection cs = new ConfigurationSection();;
-	
-	public static void main(String[] args) throws IOException
-	{
-		File file = new File(desktop, "tests.yml");
-		Configuration c = new Configuration(file).parse();
 
-		Logger log = Logger.getLogger("Configuration");
+	public static void main(final String[] args) throws IOException
+	{
+		final File file = new File(desktop, "tests.yml");
+		final Configuration c = new Configuration(file).parse();
+
+		final Logger log = Logger.getLogger("Configuration");
 		log.info("Digite uma key para verificar o parser:");
 
-		Scanner s = new Scanner(System.in);
-		String key = s.nextLine();
-		log.info("Resultado [" + key + ": " + c.builder.get(key) + "]\n");		
+		final Scanner s = new Scanner(System.in);
+		final String key = s.nextLine();
+		log.info("Resultado [" + key + ": " + c.builder.get(key) + "]\n");
 
 		log.info("Agora, digite algo para MUDAR:");
-		String keychange = s.nextLine();
+		final String keychange = s.nextLine();
 
 		log.info("Entendi.. Digite o novo valor:");
 		String valuechange = s.nextLine();
-		if(valuechange.isEmpty()){
+		if (valuechange.isEmpty())
+		{
 			valuechange = null;
 		}
 		c.set(keychange, valuechange);
@@ -58,24 +77,19 @@ public class Configuration implements Serializable, Cloneable
 		c.parse();
 	}
 
-	public Configuration(File file)
+	public Configuration(final File file)
 	{
 		this.file = file;
 	}
 
-	public <Value> Value section(String key)
-	{
-		return null;
-	}
-
 	public Configuration parse() throws IOException
 	{
-		this.builder.clear();
-		this.parser.clear();
+		builder.clear();
+		parser.clear();
 
-		FileInputStream input = new FileInputStream(file);
-		InputStreamReader stream = new InputStreamReader(input, Charset.forName("UTF-8"));
-		BufferedReader reader = new BufferedReader(stream);
+		final FileInputStream input = new FileInputStream(file);
+		final InputStreamReader stream = new InputStreamReader(input, Charset.forName("UTF-8"));
+		final BufferedReader reader = new BufferedReader(stream);
 
 		String str = "";
 		while ((str = reader.readLine()) != null)
@@ -86,19 +100,18 @@ public class Configuration implements Serializable, Cloneable
 		reader.close();
 
 		@SuppressWarnings("unused")
-		Logger log = Logger.getLogger("Configuration");
-		
+		final Logger log = Logger.getLogger("Configuration");
+
 		cs.setNewSectionTransform(parser);
 		parser = cs.formSection().formResult();
-		for (String parser0 : parser)
-		{			
-			
-			
+		for (final String parser0 : parser)
+		{
+
 			if (!parser0.startsWith("#") && !parser0.isEmpty())
 			{
-				String k = parser0.split(":")[0];
+				final String k = parser0.split(":")[0];
 				String v = parser0.split(k)[1];
-	
+
 				if (v.startsWith(" "))
 				{
 					v = v.replaceFirst(" ", "");
@@ -116,21 +129,20 @@ public class Configuration implements Serializable, Cloneable
 				builder.put(k, v);
 			}
 		}
-		
 
 		return this;
 	}
 
 	public void save() throws IOException
 	{
-		Logger log = Logger.getLogger("Configuration");
-		FileOutputStream fos = new FileOutputStream(file);
-		OutputStreamWriter os = new OutputStreamWriter(fos, Charset.forName("UTF-8"));
-		Set<String> preventive = new HashSet<String>();
-		BufferedWriter writer = new BufferedWriter(os);
+		final Logger log = Logger.getLogger("Configuration");
+		final FileOutputStream fos = new FileOutputStream(file);
+		final OutputStreamWriter os = new OutputStreamWriter(fos, Charset.forName("UTF-8"));
+		final Set<String> preventive = new HashSet<String>();
+		final BufferedWriter writer = new BufferedWriter(os);
 		String content = "";
 
-		for (String map : parser)
+		for (final String map : parser)
 		{
 			log.info("parsing: " + map);
 			if (map.startsWith("#"))
@@ -139,10 +151,10 @@ public class Configuration implements Serializable, Cloneable
 			}
 			else
 			{
-				String k = map.split(":")[0];
+				final String k = map.split(":")[0];
 				log.info("---> key = " + k);
-				
-				String v = map.split(k + ":").length == 1 ? v = "" : map.split(k + ":")[1]; //Fix For Sections
+
+				String v = map.split(k + ":").length == 1 ? v = "" : map.split(k + ":")[1]; // Fix For Sections
 
 				if (v.startsWith(" "))
 				{
@@ -170,16 +182,30 @@ public class Configuration implements Serializable, Cloneable
 			}
 		}
 
-		content = cs.sectionTransform(content).getResultOfTransform(); //By Jonathan
+		content = cs.sectionTransform(content).getResultOfTransform(); // By Jonathan
 		writer.write(content);
 		writer.flush();
 		writer.close();
 	}
 
-	
-	
-	public void set(String key, Object value)
+	public void set(final String key, final Object value)
 	{
+		for (final char c : key.toCharArray())
+		{
+			if (!Limits.ACCEPTED_KEY_SIMBOLS.contains(String.valueOf(c)) && !Limits.ALPHABET.contains(String.valueOf(c)) && !Limits.NUMBERS.contains(String.valueOf(c)))
+			{
+				try
+				{
+					throw new KeycharErrorException(c);
+				}
+				catch (final KeycharErrorException e)
+				{
+					e.printStackTrace();
+					break;
+				}
+			}
+		}
+
 		builder.put(key, value);
 
 		for (int i = 0; i < parser.size(); i++)
@@ -193,25 +219,24 @@ public class Configuration implements Serializable, Cloneable
 		parser.add(key + ": " + value);
 	}
 
-	public String getString(String key)
+	public String getString(final String key)
 	{
 		return String.valueOf(builder.get(key));
 	}
 
-	public Integer getInt(String key)
+	public Integer getInt(final String key)
 	{
 		return Integer.parseInt(String.valueOf(builder.get(key)));
 	}
 
-	public Boolean getBoolean(String key)
+	public Boolean getBoolean(final String key)
 	{
 		return Boolean.parseBoolean(String.valueOf(builder.get(key)));
 	}
 
-	public Float getFloat(String key)
+	public Float getFloat(final String key)
 	{
 		return Float.parseFloat(String.valueOf(builder.get(key)));
 	}
-		
 
 }

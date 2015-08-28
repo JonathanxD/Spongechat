@@ -21,8 +21,8 @@ package org.sparkpowered.spongechat.pages;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.sparkpowered.spongechat.Message;
 import org.sparkpowered.spongechat.SpongechatAPI;
+import org.sparkpowered.spongechat.messages.Message;
 import org.sparkpowered.spongechat.providers.IChatPagination;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.service.pagination.PaginationBuilder;

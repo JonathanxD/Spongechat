@@ -16,7 +16,7 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.channels;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -30,6 +30,8 @@ import java.util.Collection;
 import java.util.UUID;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.sparkpowered.spongechat.SpongechatAPI;
+import org.sparkpowered.spongechat.commands.ChatCommand;
 import org.spongepowered.api.service.sql.SqlService;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.util.command.args.GenericArguments;
@@ -42,7 +44,7 @@ public class Channels
 	public static Collection<Channel> ALL_CHANNELS = Channels.allChannels();
 	public static Channel DEFAULT_CHANNEL = Channels.defaultChannel();
 
-	protected Channels()
+	public Channels()
 	{
 	}
 
@@ -61,7 +63,7 @@ public class Channels
 	 *
 	 * @param debug <code>true</code> to activate information's on the console.
 	 */
-	public strictfp Collection<Channel> loadChannels(boolean debug) throws SQLException, ClassNotFoundException, IOException
+	public strictfp Collection<Channel> loadChannels(final boolean debug) throws SQLException, ClassNotFoundException, IOException
 	{
 		SpongechatAPI.getChannels().clear();
 
@@ -70,7 +72,7 @@ public class Channels
 			SpongechatAPI.getProvider().getLogger().info("Trying to connect to the database..");
 		}
 
-		Connection conn = datasource("jdbc:h2:spongechat-a0.db").getConnection();
+		final Connection conn = datasource("jdbc:h2:spongechat-a0.db").getConnection();
 
 		if (debug)
 		{
@@ -84,7 +86,7 @@ public class Channels
 				SpongechatAPI.getProvider().getLogger().info("Preparing database to get data..");
 			}
 
-			StringBuilder sb = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 			sb.append("CREATE TABLE IF NOT EXISTS `Spongechannels` (");
 			sb.append("`UniqueID` TINYINT, ");
 			sb.append("`Channel` VARCHAR(150), ");
@@ -104,8 +106,8 @@ public class Channels
 				SpongechatAPI.getProvider().getLogger().info("Getting database data process started.");
 			}
 
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `Spongechannels`;");
-			ResultSet rs = ps.executeQuery();
+			final PreparedStatement ps = conn.prepareStatement("SELECT * FROM `Spongechannels`;");
+			final ResultSet rs = ps.executeQuery();
 
 			if (debug)
 			{
@@ -114,20 +116,20 @@ public class Channels
 
 			while (rs.next())
 			{
-				byte[] des = rs.getBytes("UniqueID");
-				UUID uniqueId = (UUID) parseByte(des);
-				String name = rs.getString("Channel");
-				String nick = rs.getString("Nickname");
-				String form = rs.getString("Format");
-				Integer delay = rs.getInt("Delay");
-				Integer cost = rs.getInt("Cost");
-				Integer distance = rs.getInt("Distance");
-				Boolean colors = rs.getBoolean("Colors");
-				Boolean crossworld = rs.getBoolean("Crossworld");
-				Boolean mathematics = rs.getBoolean("Mathematics");
-				Channel channel = new Channel(uniqueId, name, nick, cost, delay, distance, crossworld, colors, mathematics, form);
+				final byte[] des = rs.getBytes("UniqueID");
+				final UUID uniqueId = (UUID) parseByte(des);
+				final String name = rs.getString("Channel");
+				final String nick = rs.getString("Nickname");
+				final String form = rs.getString("Format");
+				final Integer delay = rs.getInt("Delay");
+				final Integer cost = rs.getInt("Cost");
+				final Integer distance = rs.getInt("Distance");
+				final Boolean colors = rs.getBoolean("Colors");
+				final Boolean crossworld = rs.getBoolean("Crossworld");
+				final Boolean mathematics = rs.getBoolean("Mathematics");
+				final Channel channel = new Channel(uniqueId, name, nick, cost, delay, distance, crossworld, colors, mathematics, form);
 
-				for (Channel sc : SpongechatAPI.getChannels())
+				for (final Channel sc : SpongechatAPI.getChannels())
 				{
 					if (sc.getNickname().equalsIgnoreCase(channel.getNickname()))
 					{
@@ -140,8 +142,8 @@ public class Channels
 					SpongechatAPI.getProvider().getLogger().info("Loading Spongechannel: " + channel.getChannelName() + " (" + channel.getNickname() + ")");
 				}
 
-				ChatCommand cc = new ChatCommand(channel);
-				CommandSpec cs = CommandSpec.builder().description(Texts.of("Command to speak in the channel " + name)).arguments(GenericArguments.remainingJoinedStrings(Texts.of("message"))).permission("spongechat.speak." + nick.toLowerCase()).executor(cc).build();
+				final ChatCommand cc = new ChatCommand(channel);
+				final CommandSpec cs = CommandSpec.builder().description(Texts.of("Command to speak in the channel " + name)).arguments(GenericArguments.remainingJoinedStrings(Texts.of("message"))).permission("spongechat.speak." + nick.toLowerCase()).executor(cc).build();
 				channel.channelCommand = cs;
 
 				SpongechatAPI.getChannelManager().registerCommand(channel, cs, nick.toLowerCase());
@@ -167,7 +169,7 @@ public class Channels
 	 * @param jdbcUrl The URL of jdbc
 	 * @return The datasource content
 	 */
-	protected strictfp javax.sql.DataSource datasource(String jdbcUrl) throws SQLException
+	protected strictfp javax.sql.DataSource datasource(final String jdbcUrl) throws SQLException
 	{
 		if (sql == null)
 		{
@@ -184,10 +186,10 @@ public class Channels
 	 * @param obj The object to be converted.
 	 * @return Returns the byte's array converted from object.
 	 */
-	protected strictfp byte[] parseObject(Object obj) throws IOException
+	protected strictfp byte[] parseObject(final Object obj) throws IOException
 	{
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		ObjectOutputStream os = new ObjectOutputStream(out);
+		final ByteArrayOutputStream out = new ByteArrayOutputStream();
+		final ObjectOutputStream os = new ObjectOutputStream(out);
 		os.writeObject(obj);
 		os.close();
 		return out.toByteArray();
@@ -199,10 +201,10 @@ public class Channels
 	 * @param data The byte's array
 	 * @return Returns the object converted from byte's array.
 	 */
-	protected strictfp Object parseByte(byte[] data) throws IOException, ClassNotFoundException
+	protected strictfp Object parseByte(final byte[] data) throws IOException, ClassNotFoundException
 	{
-		ByteArrayInputStream in = new ByteArrayInputStream(data);
-		ObjectInputStream is = new ObjectInputStream(in);
+		final ByteArrayInputStream in = new ByteArrayInputStream(data);
+		final ObjectInputStream is = new ObjectInputStream(in);
 		return is.readObject();
 	}
 

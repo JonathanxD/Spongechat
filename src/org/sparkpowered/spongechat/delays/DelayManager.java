@@ -16,7 +16,7 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.delays;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,7 +28,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
-import org.sparkpowered.spongechat.providers.IDelayManager;
+import org.sparkpowered.spongechat.SpongechatAPI;
+import org.sparkpowered.spongechat.channels.Channel;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.service.scheduler.Task;
 import org.spongepowered.api.service.scheduler.TaskBuilder;

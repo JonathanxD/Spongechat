@@ -1,4 +1,4 @@
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.messages;
 
 import java.util.UUID;
 

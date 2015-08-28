@@ -16,12 +16,17 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.commands;
 
 import java.util.UUID;
 
+import org.sparkpowered.spongechat.PlayerManager;
+import org.sparkpowered.spongechat.SpongechatAPI;
+import org.sparkpowered.spongechat.channels.Channel;
+import org.sparkpowered.spongechat.channels.ChannelManager;
 import org.sparkpowered.spongechat.events.ChannelMessageEvent;
 import org.sparkpowered.spongechat.lang.Language;
+import org.sparkpowered.spongechat.messages.Message;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.Texts;
@@ -58,10 +63,10 @@ public class ChatCommand implements CommandExecutor
 	 *
 	 * @param channel The channel of command.
 	 */
-	public ChatCommand(Channel channel)
+	public ChatCommand(final Channel channel)
 	{
 		this.channel = channel;
-		this.random = UUID.randomUUID();
+		random = UUID.randomUUID();
 	}
 
 	/**
@@ -88,19 +93,19 @@ public class ChatCommand implements CommandExecutor
 	 * </p>
 	 */
 	@Override
-	public CommandResult execute(CommandSource sender, CommandContext contesto) throws CommandException
+	public CommandResult execute(final CommandSource sender, final CommandContext contesto) throws CommandException
 	{
 		if (!(sender instanceof ConsoleSource))
 		{
 			if (contesto.hasAny("message"))
 			{
-				String playerMessage = String.valueOf(contesto.<String> getOne("message"));
-				PlayerManager pm = SpongechatAPI.getPlayerManager();
-				ChannelManager cm = SpongechatAPI.getChannelManager();
+				final String playerMessage = String.valueOf(contesto.<String> getOne("message"));
+				final PlayerManager pm = SpongechatAPI.getPlayerManager();
+				final ChannelManager cm = SpongechatAPI.getChannelManager();
 
 				if (pm.isMuted((Player) sender, getChannel()))
 				{
-					String s = Language.YOU_ARE_MUTED_FROM_THIS_CHANNEL;
+					final String s = Language.YOU_ARE_MUTED_FROM_THIS_CHANNEL;
 					s.replace("@channel", getChannel().getChannelName());
 					s.replace("@channelnick", getChannel().getNickname());
 					sender.sendMessage(Texts.of(s).builder().build());
@@ -109,7 +114,7 @@ public class ChatCommand implements CommandExecutor
 
 				if (cm.isMuted(getChannel()))
 				{
-					String s = Language.CHANNEL_IS_MUTED;
+					final String s = Language.CHANNEL_IS_MUTED;
 					s.replace("@channel", getChannel().getChannelName());
 					s.replace("@channelnick", getChannel().getNickname());
 					sender.sendMessage(Texts.of(s).builder().build());
@@ -118,12 +123,12 @@ public class ChatCommand implements CommandExecutor
 
 				// TODO: checar delay no canal
 
-				Message message = new Message((Player) sender, getChannel(), playerMessage);
-				String format = Formats.DEFAULT;
-				Text builder = Texts.of(format).builder().onClick(TextActions.runCommand("spongechat -psgi " + message.getMessageId().toString())).build();
+				final Message message = new Message((Player) sender, getChannel(), playerMessage);
+				final String format = "";
+				final Text builder = Texts.of(format).builder().onClick(TextActions.runCommand("spongechat -psgi " + message.getMessageId().toString())).build();
 				message.setText(builder);
 
-				ChannelMessageEvent handler = message.call();
+				final ChannelMessageEvent handler = message.call();
 
 				if (!(handler.isCancelled()))
 				{

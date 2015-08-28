@@ -26,7 +26,7 @@ package org.sparkpowered.spongechat.logs;
  *
  * @category Log Handlering
  * @category Channel Handlering
- * @see org.sparkpowered.spongechat.Channel Channel
+ * @see org.sparkpowered.spongechat.channels.Channel Channel
  * @see org.sparkpowered.spongechat.logs.LogItem When the log is stored and represented
  * @see org.sparkpowered.spongechat.logs.LogData When name and data is stored
  *
