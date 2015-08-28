@@ -16,7 +16,7 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.logs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +27,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import org.sparkpowered.spongechat.logs.LogData;
-import org.sparkpowered.spongechat.logs.LogItem;
+import org.sparkpowered.spongechat.SpongechatAPI;
 import org.sparkpowered.spongechat.providers.ILoggerManager;
 
 public class LoggerManager implements ILoggerManager
@@ -37,7 +36,7 @@ public class LoggerManager implements ILoggerManager
 	private final HashMap<String, List<UUID>> center = new HashMap<String, List<UUID>>();
 	private final HashMap<UUID, LogItem> items = new HashMap<UUID, LogItem>();
 
-	protected LoggerManager()
+	public LoggerManager()
 	{
 	}
 

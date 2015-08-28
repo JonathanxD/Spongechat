@@ -16,13 +16,14 @@
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat;
+package org.sparkpowered.spongechat.events;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.sparkpowered.spongechat.Spongechat;
+import org.sparkpowered.spongechat.SpongechatAPI;
 import org.sparkpowered.spongechat.channels.Channels;
-import org.sparkpowered.spongechat.events.ChannelMessageEvent;
 import org.sparkpowered.spongechat.messages.Message;
 import org.sparkpowered.spongechat.messages.OrderedMessage;
 import org.spongepowered.api.entity.player.Player;
@@ -91,7 +92,7 @@ public class EventManager
 	/**
 	 * After the preparation (handler0), this action is called to real perform message on the chat.
 	 *
-	 * @see org.sparkpowered.spongechat.EventManager The method handle0(PlayerChatEvent ...)
+	 * @see org.sparkpowered.spongechat.events.EventManager The method handle0(PlayerChatEvent ...)
 	 */
 	@Subscribe(order = Order.LAST, ignoreCancelled = true)
 	public void handlePlayerChatEventLast(final PlayerChatEvent event)

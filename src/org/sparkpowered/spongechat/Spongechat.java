@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 import org.sparkpowered.spongechat.channels.ChannelManager;
 import org.sparkpowered.spongechat.commands.CommandHandler;
+import org.sparkpowered.spongechat.logs.LoggerManager;
 import org.sparkpowered.spongechat.providers.IChannelManager;
 import org.sparkpowered.spongechat.providers.ILoggerManager;
 import org.sparkpowered.spongechat.providers.IPlayerManager;
