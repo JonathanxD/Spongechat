@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import org.sparkpowered.spongechat.channels.Channel;
 import org.sparkpowered.spongechat.channels.ChannelManager;
 import org.sparkpowered.spongechat.commands.CommandHandler;
 import org.sparkpowered.spongechat.logs.LoggerManager;
@@ -104,17 +105,53 @@ public class Spongechat implements ISpongechat
 		logger.info("Registering providers {\"PlayerManager.class\"}...  78%");
 
 		Spongechat.sponge.getServiceManager().setProvider(this, ILoggerManager.class, new LoggerManager());
-		logger.info("Registering providers {\"LoggerManager.class\"}...  100%");
+		logger.info("Registering providers {\"LoggerManager.class\"}...  86%");
 
 		SpongechatAPI.getInternalChannelAPI().loadChannels(true);
-
 		logger.info("Loading channels... 100%");
 
 		Spongechat.sponge.getCommandDispatcher().register(this, SpongechatCommand, "spongechat", "spc", "sc");
-		logger.info("Registering commands... 32%");
+		logger.info("Registering plugin commands... 100%");
 
-		// TODO: registrar comando dos canais.
+		final Options options = new Options();
+		if (!options.exists())
+		{
+			Channel def = null;
+			for (final Channel c : SpongechatAPI.getChannels())
+			{
+				if (c.isDefault())
+				{
+					def = c;
+					break;
+				}
+			}
 
+			if (def == null)
+			{
+				if (SpongechatAPI.getChannels().size() > 0)
+				{
+					def = SpongechatAPI.getChannels().get(0);
+					logger.warning("Default channel (options.dat not found): " + def.getName() + "/" + def.getNickname());
+				}
+				else
+				{
+					logger.warning("The options.dat does not exists, and don't have any channel to be applied as default.");
+				}
+			}
+
+			options.setDefaultChannel(def);
+			options.makeDefault();
+			logger.warning("Default language loaded [enUS] (options.dat not found)");
+			logger.warning("Created options.dat with this default data.");
+		}
+		else
+		{
+			options.load();
+			logger.info("Options loaded and parsed.");
+		}
+
+		Spongechat.sponge.getServiceManager().setProvider(this, Options.class, options);
+		logger.info("Registering providers {\"Options.class\"}...  100%");
 	}
 
 	@Subscribe

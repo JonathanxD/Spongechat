@@ -49,6 +49,11 @@ public class Configuration implements Serializable, Cloneable
 	public static void main(final String[] args) throws IOException
 	{
 		final File file = new File(desktop, "tests.yml");
+		if (!file.exists())
+		{
+			file.createNewFile();
+		}
+
 		final Configuration c = new Configuration(file).parse();
 
 		final Logger log = Logger.getLogger("Configuration");

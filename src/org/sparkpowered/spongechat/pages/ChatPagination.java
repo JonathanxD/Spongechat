@@ -58,7 +58,7 @@ public class ChatPagination implements IChatPagination
 		plain.add(" ");
 		plain.add("§lMessage by: §0" + message.getSender());
 		plain.add("§lMessage Id: §0" + message.getMessageId().toString());
-		plain.add("§lChannel: §0" + message.getChannel().getChannelName());
+		plain.add("§lChannel: §0" + message.getChannel().getName());
 		plain.add("§lLocation: §0" + message.getLocationText());
 		plain.add(" ");
 

@@ -139,7 +139,7 @@ public class Channels
 
 				if (debug)
 				{
-					SpongechatAPI.getProvider().getLogger().info("Loading Spongechannel: " + channel.getChannelName() + " (" + channel.getNickname() + ")");
+					SpongechatAPI.getProvider().getLogger().info("Loading Spongechannel: " + channel.getName() + " (" + channel.getNickname() + ")");
 				}
 
 				final ChatCommand cc = new ChatCommand(channel);

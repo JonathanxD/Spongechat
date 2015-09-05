@@ -106,7 +106,7 @@ public class ChatCommand implements CommandExecutor
 				if (pm.isMuted((Player) sender, getChannel()))
 				{
 					final String s = Language.YOU_ARE_MUTED_FROM_THIS_CHANNEL;
-					s.replace("@channel", getChannel().getChannelName());
+					s.replace("@channel", getChannel().getName());
 					s.replace("@channelnick", getChannel().getNickname());
 					sender.sendMessage(Texts.of(s).builder().build());
 					return CommandResult.empty();
@@ -115,7 +115,7 @@ public class ChatCommand implements CommandExecutor
 				if (cm.isMuted(getChannel()))
 				{
 					final String s = Language.CHANNEL_IS_MUTED;
-					s.replace("@channel", getChannel().getChannelName());
+					s.replace("@channel", getChannel().getName());
 					s.replace("@channelnick", getChannel().getNickname());
 					sender.sendMessage(Texts.of(s).builder().build());
 					return CommandResult.empty();

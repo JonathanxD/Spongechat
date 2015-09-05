@@ -21,7 +21,6 @@ package org.sparkpowered.spongechat.channels;
 import java.io.Serializable;
 import java.util.UUID;
 
-import org.sparkpowered.spongechat.commands.ChatCommand;
 import org.spongepowered.api.util.command.spec.CommandSpec;
 
 /**
@@ -41,12 +40,13 @@ public class Channel implements Serializable
 	private String channelFormat = "";
 	private String channelNick = "";
 	private String channelName = "";
-	private Integer channelMessageCost = 0;
-	private Integer channelMessageDelay = 0;
-	private Integer channelDistance = 0;
-	private Boolean channelCrossworld = true;
-	private Boolean channelColorsAllowed = false;
-	private Boolean channelMathAllowed = false;
+	private int channelMessageCost = 0;
+	private int channelMessageDelay = 0;
+	private int channelDistance = 0;
+	private boolean channelCrossworld = true;
+	private boolean channelColorsAllowed = false;
+	private boolean channelMathAllowed = false;
+	private boolean def = false;
 
 	/**
 	 * <p>
@@ -66,23 +66,23 @@ public class Channel implements Serializable
 	 *
 	 * @return An fake instance (the channel does not exists) of a Channel
 	 */
-	public static Channel makeFake(UUID channelUniqueId, String channelName, String channelNick, Integer cost, Integer delay, Integer distance, Boolean crossworld, Boolean colors, Boolean math, String format)
+	public static Channel makeFake(final UUID channelUniqueId, final String channelName, final String channelNick, final Integer cost, final Integer delay, final Integer distance, final Boolean crossworld, final Boolean colors, final Boolean math, final String format)
 	{
 		return new Channel(channelUniqueId, channelName, channelNick, cost, delay, distance, crossworld, colors, math, format);
 	}
 
-	protected Channel(UUID channelUniqueId, String channelName, String channelNick, Integer cost, Integer delay, Integer distance, Boolean crossworld, Boolean colors, Boolean math, String format)
+	protected Channel(final UUID channelUniqueId, final String channelName, final String channelNick, final Integer cost, final Integer delay, final Integer distance, final Boolean crossworld, final Boolean colors, final Boolean math, final String format)
 	{
 		this.channelUniqueId = channelUniqueId;
 		this.channelNick = channelNick.replaceAll("\\D\\W", "").trim();
 		this.channelName = channelName.replaceAll("([^a-zA-Z0-9 ])+", "").trim().replaceAll("  ", " ");
-		this.channelColorsAllowed = colors;
-		this.channelMessageCost = cost;
-		this.channelMessageDelay = delay;
-		this.channelFormat = format;
-		this.channelCrossworld = crossworld;
-		this.channelDistance = distance;
-		this.channelMathAllowed = math;
+		channelColorsAllowed = colors;
+		channelMessageCost = cost;
+		channelMessageDelay = delay;
+		channelFormat = format;
+		channelCrossworld = crossworld;
+		channelDistance = distance;
+		channelMathAllowed = math;
 	}
 
 	/**
@@ -99,9 +99,9 @@ public class Channel implements Serializable
 	 *
 	 * @param math <b>true</b> for activate and allow, and <b>false</b> for block.
 	 */
-	public void setMathematicsAllowed(boolean math)
+	public void setMathematicsAllowed(final boolean math)
 	{
-		this.channelMathAllowed = math;
+		channelMathAllowed = math;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class Channel implements Serializable
 	 *
 	 * @param channelDistance The new radius value
 	 */
-	public void setDistance(int channelDistance)
+	public void setDistance(final int channelDistance)
 	{
 		this.channelDistance = channelDistance;
 	}
@@ -151,7 +151,7 @@ public class Channel implements Serializable
 	 *
 	 * @param channelCrossworld <b>true</b> for enable and <b>false</b> for disable
 	 */
-	public void setCrossworld(boolean channelCrossworld)
+	public void setCrossworld(final boolean channelCrossworld)
 	{
 		this.channelCrossworld = channelCrossworld;
 	}
@@ -162,7 +162,7 @@ public class Channel implements Serializable
 	 * @see org.spongepowered.api.util.command.spec.CommandSpec CommandSpec
 	 * @see org.sparkpowered.spongechat.commands.ChatCommand Command per channel handlering
 	 */
-	public CommandSpec getChannelCommand()
+	public CommandSpec getCommand()
 	{
 		return channelCommand;
 	}
@@ -196,7 +196,7 @@ public class Channel implements Serializable
 	 *
 	 * @param channelNick The new nickname for the channel to replace the actually
 	 */
-	public void setNickname(String channelNick)
+	public void setNickname(final String channelNick)
 	{
 		this.channelNick = channelNick;
 	}
@@ -205,7 +205,7 @@ public class Channel implements Serializable
 	 *
 	 * @return The name of the channel
 	 */
-	public String getChannelName()
+	public String getName()
 	{
 		return channelName;
 	}
@@ -215,7 +215,7 @@ public class Channel implements Serializable
 	 *
 	 * @param channelName The new channel's name to replace the actually name.
 	 */
-	public void setChannelName(String channelName)
+	public void setName(final String channelName)
 	{
 		this.channelName = channelName;
 	}
@@ -227,7 +227,7 @@ public class Channel implements Serializable
 	 *
 	 * @return The channel's price/cost for send messages.
 	 */
-	public int getChannelMessageCost()
+	public int getCost()
 	{
 		return channelMessageCost;
 	}
@@ -243,7 +243,7 @@ public class Channel implements Serializable
 	 *
 	 * @param channelMessageCost The new channel's price/cost
 	 */
-	public void setMessageCost(int channelMessageCost)
+	public void setCost(final int channelMessageCost)
 	{
 		this.channelMessageCost = channelMessageCost;
 	}
@@ -252,7 +252,7 @@ public class Channel implements Serializable
 	 *
 	 * @return The channel's delay per message
 	 */
-	public int getMessageDelay()
+	public int getDelay()
 	{
 		return channelMessageDelay;
 	}
@@ -262,7 +262,7 @@ public class Channel implements Serializable
 	 *
 	 * @param channelMessageDelay The new channel's delay
 	 */
-	public void setChannelMessageDelay(int channelMessageDelay)
+	public void setDelay(final int channelMessageDelay)
 	{
 		this.channelMessageDelay = channelMessageDelay;
 	}
@@ -271,7 +271,7 @@ public class Channel implements Serializable
 	 *
 	 * @return If colors are allowed in the channel, returns <b>true</b> and if not, <b>false</b>
 	 */
-	public boolean getChannelColorsAllowed()
+	public boolean colorsIsAllowed()
 	{
 		return channelColorsAllowed;
 	}
@@ -281,9 +281,19 @@ public class Channel implements Serializable
 	 *
 	 * @param channelColorsAllowed <b>true</b> to enable the use of colors and <b>false</b> to disable.
 	 */
-	public void setChannelColorsAllowed(boolean channelColorsAllowed)
+	public void setColorsAllowed(final boolean channelColorsAllowed)
 	{
 		this.channelColorsAllowed = channelColorsAllowed;
+	}
+
+	public boolean isDefault()
+	{
+		return def;
+	}
+
+	public void setDefault(final boolean default0)
+	{
+		def = default0;
 	}
 
 }

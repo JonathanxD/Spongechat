@@ -20,6 +20,7 @@ package org.sparkpowered.spongechat.providers;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.sparkpowered.spongechat.channels.Channel;
 import org.sparkpowered.spongechat.logs.ChannelLogs;
@@ -38,6 +39,8 @@ import org.spongepowered.api.util.command.spec.CommandSpec;
  */
 public interface IChannelManager
 {
+
+	public Entry<Channel, CommandSpec> getChannel(String channelsName, boolean ignoreCase);
 
 	/**
 	 * <p>

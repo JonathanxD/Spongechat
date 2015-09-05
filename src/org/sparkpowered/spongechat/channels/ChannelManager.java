@@ -94,7 +94,7 @@ public class ChannelManager implements IChannelManager
 	public void registerCommand(@Nonnull final Channel channel)
 	{
 		Preconditions.checkNotNull(channel, "Channel can't be null.");
-		final CommandSpec spec = CommandSpec.builder().permission("spongechat.channel." + channel.getNickname().toLowerCase()).description(Texts.of("Speak in " + channel.getChannelName() + " Channel.")).build();
+		final CommandSpec spec = CommandSpec.builder().permission("spongechat.channel." + channel.getNickname().toLowerCase()).description(Texts.of("Speak in " + channel.getName() + " Channel.")).build();
 		registerCommand(channel, spec, channel.getNickname());
 	}
 
@@ -157,6 +157,20 @@ public class ChannelManager implements IChannelManager
 	public void clear(@Nonnull final Player player)
 	{
 		Preconditions.checkNotNull(player, "Player can't be null.");
+	}
+
+	@Override
+	public Entry<Channel, CommandSpec> getChannel(@Nonnull final String channelsName, @Nonnull final boolean ignoreCase)
+	{
+		for (final Entry<Channel, CommandSpec> channelSet : commands.entrySet())
+		{
+			if ((ignoreCase ? channelSet.getKey().getName().equalsIgnoreCase(channelsName) : channelSet.getKey().getName().equals(channelsName)))
+			{
+				return channelSet;
+			}
+		}
+
+		return null;
 	}
 
 }

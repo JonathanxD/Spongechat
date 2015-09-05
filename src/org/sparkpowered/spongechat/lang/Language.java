@@ -66,7 +66,7 @@ public class Language
 
 	public static String CHANNEL_NOT_EXISTS = null;
 
-	public static String getDefaultString(int i)
+	public static String getDefaultString(final int i)
 	{
 		assert(i > 0) : "";
 		switch (i)
@@ -118,7 +118,7 @@ public class Language
 		}
 	}
 
-	public static Text getDefaultText(int i)
+	public static Text getDefaultText(final int i)
 	{
 		switch (i)
 		{

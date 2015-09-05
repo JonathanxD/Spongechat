@@ -17,8 +17,8 @@
  */
 package org.sparkpowered.spongechat;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.sparkpowered.spongechat.channels.Channel;
 import org.sparkpowered.spongechat.channels.ChannelManager;
@@ -34,9 +34,9 @@ import org.sparkpowered.spongechat.channels.Channels;
 public class SpongechatAPI
 {
 
-	private static final Collection<Channel> channels = new HashSet<Channel>();
+	private static final List<Channel> channels = new ArrayList<Channel>();
 
-	public static Collection<Channel> getChannels()
+	public static List<Channel> getChannels()
 	{
 		return channels;
 	}
