@@ -1,11 +1,13 @@
 /**
- *  Spongechat — A new Powered Chat System for SpongePowered Minecraft API.
+ * 	This file is part from Spongechat.
+ *
+ *  Spongechat — A new powered engine for server conversations.
  *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *  the Free Software Foundation, either version 3 of the License.
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -41,14 +43,14 @@ public class ContextList
 		return sources;
 	}
 
-	public static boolean cand(Player player)
+	public static boolean cand(final Player player)
 	{
-		UUID uid = player.getUniqueId();
+		final UUID uid = player.getUniqueId();
 		return (getSources().containsKey(uid) == false) && (getActive().contains(uid) == false);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <Handler> ContextHandler<Handler> getSource(UUID player)
+	public static <Handler> ContextHandler<Handler> getSource(final UUID player)
 	{
 		return (ContextHandler<Handler>) handlerList.get(player);
 	}

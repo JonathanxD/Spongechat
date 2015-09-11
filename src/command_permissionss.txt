@@ -1,0 +1,42 @@
+#  Quer uma palavra nova, Mr. Lee?
+#  ... aí vai: pernicioso.
+
+Para ver e poder acessar o Help:
+- spongechat.help
+- spongechat.admin
+- spongechat.mod
+
+Para criação e remoção de Canais:
+- spongechat.command.channel.(create|remove|delete)
+- spongechat.command.channel.*
+- spongechat.(createchannels|removechannels|deletechannels)
+- spongechat.admin
+
+Controle de Mute de Canais:
+- spongechat.command.channel.(mute|unmute)
+- spongechat.command.channel.*
+- spongechat.(mutechannels|unmutechannels)
+- spongechat.admin
+
+Controle de Kickar Players de Canais:
+- spongechat.command.channel.(kick|expulse)
+- spongechat.command.channel.*
+- spongechat.kickplayers
+- spongechat.(admin|mod)
+
+Controle de Mute de Players:
+- spongechat.command.player.(mute|unmute)
+- spongechat.command.player.*
+- spongechat.(muteplayers|unmuteplayers)
+- spongechat.(admin|mod)
+
+Controle de Ban de Players em Canais:
+- spongechat.command.player.(ban|unban)
+- spongechat.command.player.*
+- spongechat.(banplayers|unbanplayers)
+- spongechat.admin
+
+Controle de CIM (Click In Message) para abrir Book de informações:
+- spongechat.cim.info
+- spongechat.cim.*
+- spongechat.(admin|mod)

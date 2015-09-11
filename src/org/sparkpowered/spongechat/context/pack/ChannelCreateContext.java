@@ -1,11 +1,13 @@
 /**
- *  Spongechat — A new Powered Chat System for SpongePowered Minecraft API.
+ * 	This file is part from Spongechat.
+ *
+ *  Spongechat — A new powered engine for server conversations.
  *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *  the Free Software Foundation, either version 3 of the License.
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -28,6 +30,7 @@ import org.sparkpowered.spongechat.channels.Channel;
 import org.sparkpowered.spongechat.context.ContextExecutor;
 import org.sparkpowered.spongechat.context.ContextHandler;
 import org.sparkpowered.spongechat.context.ContextList;
+import org.sparkpowered.spongechat.formats.Template;
 import org.spongepowered.api.event.EventHandler;
 import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.Subscribe;
@@ -44,18 +47,18 @@ public class ChannelCreateContext implements ContextHandler<ChannelCreateContext
 	protected Integer now = 1, size = 0;
 	protected UUID userId = null;
 
-	public ChannelCreateContext(UUID player)
+	public ChannelCreateContext(final UUID player)
 	{
-		this.userId = player;
+		userId = player;
 	}
 
 	@Override
 	@Subscribe(order = Order.FIRST)
-	public void handle(PlayerChatEvent event)
+	public void handle(final PlayerChatEvent event)
 	{
 		if (event.getSource().getUniqueId().equals(userId))
 		{
-			String message = Texts.toPlain(event.getMessage());
+			final String message = Texts.toPlain(event.getMessage());
 
 			if (message.contains("@"))
 			{
@@ -126,20 +129,20 @@ public class ChannelCreateContext implements ContextHandler<ChannelCreateContext
 	}
 
 	@Override
-	public ContextExecutor getAction(Integer id)
+	public ContextExecutor getAction(final Integer id)
 	{
 		return subscription().get(id);
 	}
 
 	@Override
-	public void addAction(ContextExecutor executor)
+	public void addAction(final ContextExecutor executor)
 	{
 		size++;
 		subscription().put(size, executor);
 	}
 
 	@Override
-	public void setAction(Integer id, ContextExecutor executor)
+	public void setAction(final Integer id, final ContextExecutor executor)
 	{
 		subscription().put(id, executor);
 	}
@@ -206,17 +209,17 @@ public class ChannelCreateContext implements ContextHandler<ChannelCreateContext
 			@Override
 			public void execute()
 			{
-				String nick = String.valueOf(args.get(0));
-				String name = String.valueOf(args.get(1));
-				boolean colors = Boolean.parseBoolean(String.valueOf(args.get(2)));
-				boolean math = Boolean.parseBoolean(String.valueOf(args.get(3)));
-				boolean crossworld = Boolean.parseBoolean(String.valueOf(args.get(4)));
-				int distance = Integer.parseInt(String.valueOf(args.get(5)));
-				int delay = Integer.parseInt(String.valueOf(args.get(6)));
-				int cost = Integer.parseInt(String.valueOf(args.get(7)));
-				String format = String.valueOf(args.get(8));
+				final String nick = String.valueOf(args.get(0));
+				final String name = String.valueOf(args.get(1));
+				final boolean colors = Boolean.parseBoolean(String.valueOf(args.get(2)));
+				final boolean math = Boolean.parseBoolean(String.valueOf(args.get(3)));
+				final boolean crossworld = Boolean.parseBoolean(String.valueOf(args.get(4)));
+				final int distance = Integer.parseInt(String.valueOf(args.get(5)));
+				final int delay = Integer.parseInt(String.valueOf(args.get(6)));
+				final int cost = Integer.parseInt(String.valueOf(args.get(7)));
+				final String format = String.valueOf(args.get(8));
 
-				Channel channel = Channel.makeFake(UUID.randomUUID(), name, nick, cost, delay, distance, crossworld, colors, math, format);
+				final Channel channel = Channel.makeFake(UUID.randomUUID(), name, nick, cost, delay, distance, crossworld, colors, math, Template.getFormat(format));
 				SpongechatAPI.getChannels().add(channel);
 			}
 		};
@@ -232,7 +235,7 @@ public class ChannelCreateContext implements ContextHandler<ChannelCreateContext
 			{
 				if (reason == 1)
 				{
-					Spongechat sc = Spongechat.sponge.getServiceManager().provide(Spongechat.class).get();
+					final Spongechat sc = Spongechat.sponge.getServiceManager().provide(Spongechat.class).get();
 					sc.getGame().getEventManager().unregister(handler);
 					ContextList.getActive().remove(userId);
 					ContextList.getSources().remove(userId);

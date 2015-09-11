@@ -17,26 +17,49 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat.events;
+package org.sparkpowered.spongechat.permissions;
 
-import org.sparkpowered.spongechat.SpongechatAPI;
-import org.sparkpowered.spongechat.channels.Channels;
-import org.spongepowered.api.event.Order;
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- *
- * @category Event Handlering
- *
- */
-public class EventManager
+import org.spongepowered.api.entity.player.Player;
+
+public class PermissionEntry
 {
 
-	@Subscribe(order = Order.FIRST)
-	public void handleJoinEvent(final PlayerJoinEvent event)
+	private final Set<String> grant = new HashSet<String>();
+	private String entry = "";
+
+	public PermissionEntry(final String entry, final Set<String> grant)
 	{
-		SpongechatAPI.getPlayerManager().setFocus(event.getSource(), Channels.DEFAULT_CHANNEL);
+		this.entry = entry.toLowerCase();
+		for (final String s : grant)
+		{
+			this.grant.add(s.toLowerCase().replace("#", "").trim());
+		}
+	}
+
+	public String getEntry()
+	{
+		return entry;
+	}
+
+	public Set<String> getGranted()
+	{
+		return grant;
+	}
+
+	public boolean isGranted(final Player player)
+	{
+		for (final String permission : grant)
+		{
+			if (player.hasPermission(permission))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

@@ -1,20 +1,21 @@
 /**
- * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
- * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
- * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ * 	This file is part from Spongechat.
  *
- * 	This program is free software: you can redistribute it and/or modify
- * 	it under the terms of the GNU General Public License as published by
- * 	the Free Software Foundation, either version 3 of the License, or
- * 	(at your option) any later version.
+ *  Spongechat — A new powered engine for server conversations.
+ *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
  *
- * 	This program is distributed in the hope that it will be useful,
- * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU General Public License for more details.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License.
  *
- * 	You should have received a copy of the GNU General Public License
- * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.sparkpowered.spongechat.channels;
 
@@ -27,11 +28,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.sparkpowered.spongechat.SpongechatAPI;
 import org.sparkpowered.spongechat.commands.ChatCommand;
+import org.sparkpowered.spongechat.formats.Template;
 import org.spongepowered.api.service.sql.SqlService;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.util.command.args.GenericArguments;
@@ -41,14 +44,14 @@ public class Channels
 {
 
 	public static SqlService sql = null;
-	public static Collection<Channel> ALL_CHANNELS = Channels.allChannels();
+	public static List<Channel> ALL_CHANNELS = Channels.allChannels();
 	public static Channel DEFAULT_CHANNEL = Channels.defaultChannel();
 
 	public Channels()
 	{
 	}
 
-	private static Collection<Channel> allChannels()
+	private static List<Channel> allChannels()
 	{
 		return SpongechatAPI.getChannels();
 	}
@@ -127,7 +130,7 @@ public class Channels
 				final Boolean colors = rs.getBoolean("Colors");
 				final Boolean crossworld = rs.getBoolean("Crossworld");
 				final Boolean mathematics = rs.getBoolean("Mathematics");
-				final Channel channel = new Channel(uniqueId, name, nick, cost, delay, distance, crossworld, colors, mathematics, form);
+				final Channel channel = new Channel(uniqueId, name, nick, cost, delay, distance, crossworld, colors, mathematics, Template.getFormat(form));
 
 				for (final Channel sc : SpongechatAPI.getChannels())
 				{

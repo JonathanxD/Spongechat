@@ -19,49 +19,34 @@
  */
 package org.sparkpowered.spongechat.messages;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.World;
-
-public abstract interface Message
+public class Patterns
 {
 
-	public UUID getIdentification();
+	private static final String ex1 = ".*[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}:[0-9]{1,5}.*";
+	private static final String ex2 = ".*[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.*";
+	private static final String ex3 = ".*[a-zA-Z]+\\.(com|net|ru|ua|by|info|us|uk|so|org|su|tv|kz|br|biz|vh).*";
+	private static final String ex4 = ".*[a-zA-Z]+\\.(com|net|ru|ua|by|info|us|uk|so|org|su|tv|kz|br|biz|vh):[0-9]{1,5}.*";
+	private static final Pattern[] patterns = new Pattern[] { compile(ex1), compile(ex2), compile(ex3), compile(ex4) };
 
-	public String getMessageText();
-
-	public String getSentDate();
-
-	public Location<World> getSendLocation();
-
-	public List<Precondition> preconditions();
-
-	public UUID getSender();
-
-	public void setSender(UUID player);
-
-	public void setSended(boolean isSended);
-
-	public void setMessageText(String message);
-
-	public void send();
-
-	public boolean isSended();
-
-	public static enum Precondition
+	public static boolean match(final String text)
 	{
-		PREPARED_TO_SEND,
-		PLAYER_HAS_DELAY_ACTIVE,
-		PLAYER_MUTED,
-		PLAYER_NOT_IN_CHANNEL,
-		PLAYER_NOT_PRESENT,
-		CHANNEL_MUTED,
-		CHANNEL_NOT_PRESENT,
-		MESSAGE_BLOCKED,
-		FAILED_WITH_REASON,
-		FAILED_REASON_UNKNOWED;
+		for (final Pattern pattern : patterns)
+		{
+			final Matcher m = pattern.matcher(text);
+			if (m.matches())
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
+	private static final Pattern compile(final String regex)
+	{
+		return Pattern.compile(regex);
+	}
 }

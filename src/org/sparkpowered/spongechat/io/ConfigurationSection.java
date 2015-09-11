@@ -1,20 +1,21 @@
 /**
- * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
- * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
- * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ * 	This file is part from Spongechat.
  *
- * 	This program is free software: you can redistribute it and/or modify
- * 	it under the terms of the GNU General Public License as published by
- * 	the Free Software Foundation, either version 3 of the License, or
- * 	(at your option) any later version.
+ *  Spongechat — A new powered engine for server conversations.
+ *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
  *
- * 	This program is distributed in the hope that it will be useful,
- * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU General Public License for more details.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License.
  *
- * 	You should have received a copy of the GNU General Public License
- * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.sparkpowered.spongechat.io;
 
@@ -187,11 +188,11 @@ final class ConfigurationSection
 							 * if(removeIdents(nextCurr).startsWith("-")){ // Check if is List<?>
 							 * System.out.println("List: "+nextCurr);
 							 * while((nextCurr = split[x+(++y)]).startsWith("-")){
-							 * 
+							 *
 							 * }
 							 * System.out.println("Jump: "+nextCurr);
 							 * continue;
-							 * 
+							 *
 							 * // Is List
 							 * // More complex process. Next task, DO IT.
 							 * }
@@ -213,12 +214,12 @@ final class ConfigurationSection
 							 * while(removeIdents((nextCurr = split[x+(++y)])).startsWith("-")){
 							 * if(doTask == TASK_SECTION_TRANSFORM){
 							 * tmp += nextCurr + "\n";
-							 * 
+							 *
 							 * }else if(doTask == TASK_FORM_SECTION){
 							 * formingList += removeIdents(nextCurr) + ", ";
 							 * }
-							 * 
-							 * 
+							 *
+							 *
 							 * }
 							 * if(doTask == TASK_FORM_SECTION){
 							 * if(formingList.length() > 3){
@@ -227,12 +228,12 @@ final class ConfigurationSection
 							 * formingList += "]}-";
 							 * parser.add(formingList);
 							 * tmp += formingList + "\n";
-							 * 
+							 *
 							 * }
 							 * --y;
 							 * System.out.println("Parser: "+parser);
 							 * continue;
-							 * 
+							 *
 							 * }
 							 */
 							if (nextCurr.split(":").length != 1 || (nextCurr.split(":").length == 1 && removeIdents(split[x + (y + 1)]).startsWith("-")))

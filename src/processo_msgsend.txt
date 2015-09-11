@@ -1,0 +1,36 @@
+#1 [SE FOR PELO MÉTODO PRÁTICO (TECLA T, ESCREVE E MANDA, SEM COMANDO]
+  ** Spongepowered chama o evento de chat (PlayerChatEvent)
+  ** continuamos e tratamos o evento a partir do #2 em diante
+
+#1 [SE FOR PELO MÉTODO MANUAL (TECLA T, ESCREVE "/{nick do canal} ...{mensagem}", COM COMANDO]
+  ** Processamos simplificadamente o comando, para descobrir o canal
+  ** continuamos e tratamos a mensagem a partir do #2 em diante
+  
+#2. Verificamos as pré-condições
+  ** Verificamos se ele está ativo (join) no canal
+    *** se ele não estiver ativo no canal, não poderá falar.
+    *** caso estiver focado em um canal, prosseguir.
+  ** [X] Verificar se o canal que ele tá focado, existe realmente ou só está salvo por ocasião na memória do Java
+  	*** se não existir: bloquear (avisando o motivo); limpar cache do jogador na memória.
+  	*** se existir: prosseguir, e verificar agora se o canal está mutado (o CANAL, não o jogador)
+  ** Verificar se o <CANAL> está mudo (mutado)
+    *** se estiver: bloquear (avisando o motivo de bloqueio);
+    *** se não estiver: prosseguir para verificação se o <JOGADOR> está mudo.
+  ** Verificar se o <JOGADOR> está mudo
+    *** se estiver: bloquear (avisando novamente.., o motivo de bloqueio);
+    *** se não estiver: prosseguir para verificação de delays do jogador
+  ** Verficar se o jogador tem algum delay de aguardamento para falar novamente neste canal
+    *** se ele tiver: bloquear (avisando o motivo do bloqueio); opcional: mostrar o tempo que falta para ele poder falar
+    *** se ele não tiver: prosseguir para o #3.
+
+#3. Condições finais & pré-processamento
+  ** Verificar os prefixos (pessoais) do jogador
+    *** se ele possuir: fazer replace; por todos os prefixos em ordem que foram adicionados
+    *** se não possuir: remover os duplos espaços (bem provável que fique dois espaços vazios) no lugar onde ficaria a tag
+  ** Verificar agora as tags secundárias (criadas pela API do Spongechat por terceiros [outros plugins])
+    *** se possuir: fazer os replaces; por na ordem que estão selecionadas pelo admin do servidor, e não pela List em sí
+    *** se não possuir: remover os duplos espaços (como citado anteriormente)
+  ** Verificar a mensagem [se é um spam, possui divulgação de outros servers, se tem ofensas ou blocked-words)
+    *** se possuir: fazer uma lista de "Text"'s, e enviar em ordem, cada um informando cada erro ou quebra-de-regra.
+  	*** se não possuir: continuar
+  ** 

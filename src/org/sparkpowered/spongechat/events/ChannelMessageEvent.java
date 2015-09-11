@@ -1,20 +1,21 @@
 /**
- * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
- * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
- * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ * 	This file is part from Spongechat.
  *
- * 	This program is free software: you can redistribute it and/or modify
- * 	it under the terms of the GNU General Public License as published by
- * 	the Free Software Foundation, either version 3 of the License, or
- * 	(at your option) any later version.
+ *  Spongechat — A new powered engine for server conversations.
+ *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
  *
- * 	This program is distributed in the hope that it will be useful,
- * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU General Public License for more details.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License.
  *
- * 	You should have received a copy of the GNU General Public License
- * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.sparkpowered.spongechat.events;
 
@@ -25,11 +26,10 @@ import java.util.UUID;
 
 import org.sparkpowered.spongechat.SpongechatAPI;
 import org.sparkpowered.spongechat.channels.Channel;
-import org.sparkpowered.spongechat.messages.Message;
+import org.sparkpowered.spongechat.messages.PublicMessage;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.event.AbstractEvent;
 import org.spongepowered.api.event.Cancellable;
-import org.spongepowered.api.text.Text;
 
 /**
  *
@@ -50,11 +50,11 @@ public class ChannelMessageEvent extends AbstractEvent implements Cancellable
 	private Set<UUID> receivers = new HashSet<UUID>();
 	private UUID playerUniqueId = null;
 	private Channel channel = null;
-	private Text text = null;
-	private Message message = null;
+	private String text = null;
+	private PublicMessage message = null;
 	private Boolean cancelled = false;
 
-	public ChannelMessageEvent(UUID playerUniqueId, Channel channel, Message message, Text text, Set<UUID> receivers)
+	public ChannelMessageEvent(final UUID playerUniqueId, final Channel channel, final PublicMessage message, final String text, final Set<UUID> receivers)
 	{
 		this.receivers = receivers;
 		this.playerUniqueId = playerUniqueId;
@@ -79,7 +79,7 @@ public class ChannelMessageEvent extends AbstractEvent implements Cancellable
 	 *
 	 * @param text The new text value.
 	 */
-	public void setText(Text text)
+	public void setMessage(final String text)
 	{
 		this.text = text;
 	}
@@ -88,7 +88,7 @@ public class ChannelMessageEvent extends AbstractEvent implements Cancellable
 	 *
 	 * @return Returns the Text instance of message.
 	 */
-	public Text getText()
+	public String getPlayerMessage()
 	{
 		return text;
 	}
@@ -106,7 +106,7 @@ public class ChannelMessageEvent extends AbstractEvent implements Cancellable
 	 *
 	 * @return The Message instance
 	 */
-	public Message getMessage()
+	public PublicMessage getMessage()
 	{
 		return message;
 	}
@@ -135,11 +135,11 @@ public class ChannelMessageEvent extends AbstractEvent implements Cancellable
 	 * <p>
 	 * The the event as cancelled (the message not be send).
 	 * </p>
-	 * 
+	 *
 	 * @param cancelled <b>true</b> for cancel and <b>false</b> to set as not cancelled.
 	 */
 	@Override
-	public void setCancelled(boolean cancelled)
+	public void setCancelled(final boolean cancelled)
 	{
 		this.cancelled = cancelled;
 	}

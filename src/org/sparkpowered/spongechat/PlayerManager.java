@@ -1,29 +1,31 @@
 /**
- * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
- * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
- * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ * 	This file is part from Spongechat.
  *
- * 	This program is free software: you can redistribute it and/or modify
- * 	it under the terms of the GNU General Public License as published by
- * 	the Free Software Foundation, either version 3 of the License, or
- * 	(at your option) any later version.
+ *  Spongechat — A new powered engine for server conversations.
+ *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
  *
- * 	This program is distributed in the hope that it will be useful,
- * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU General Public License for more details.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License.
  *
- * 	You should have received a copy of the GNU General Public License
- * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.sparkpowered.spongechat;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -43,8 +45,8 @@ import org.spongepowered.api.entity.player.Player;
 public class PlayerManager implements IPlayerManager
 {
 
-	private static Map<UUID, Collection<Channel>> channels = new HashMap<UUID, Collection<Channel>>();
-	private static Map<UUID, Collection<Channel>> mutes = new HashMap<UUID, Collection<Channel>>();
+	private static Map<UUID, List<Channel>> channels = new HashMap<UUID, List<Channel>>();
+	private static Map<UUID, List<Channel>> mutes = new HashMap<UUID, List<Channel>>();
 	private static Map<UUID, Channel> focus = new HashMap<UUID, Channel>();
 	private static Map<UUID, Integer> count = new HashMap<UUID, Integer>();
 	private static Collection<UUID> afk = new HashSet<UUID>();
@@ -106,7 +108,7 @@ public class PlayerManager implements IPlayerManager
 	}
 
 	@Override
-	public Collection<Channel> getActiveChannels(final Player player)
+	public List<Channel> getActiveChannels(final Player player)
 	{
 		assert(player != null) : "Player can't be null.";
 
@@ -116,7 +118,7 @@ public class PlayerManager implements IPlayerManager
 		}
 		else
 		{
-			final Set<Channel> c = new HashSet<Channel>();
+			final List<Channel> c = new ArrayList<Channel>();
 			channels.put(player.getUniqueId(), c);
 			return channels.get(player.getUniqueId());
 		}
@@ -149,7 +151,7 @@ public class PlayerManager implements IPlayerManager
 	{
 		assert(player != null) : "Player can't be null.";
 		assert(channel != null) : "Channel can't be null.";
-		Collection<Channel> c = new HashSet<Channel>();
+		List<Channel> c = new ArrayList<Channel>();
 		if (mutes.containsKey(player.getUniqueId()))
 		{
 			c = mutes.get(player.getUniqueId());

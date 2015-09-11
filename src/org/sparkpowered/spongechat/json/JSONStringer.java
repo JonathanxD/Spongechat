@@ -1,3 +1,22 @@
+/**
+ * 	This file is part from Spongechat.
+ *
+ *  Spongechat — A new powered engine for server conversations.
+ *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.sparkpowered.spongechat.json;
 
 /*
@@ -39,40 +58,49 @@ import java.io.StringWriter;
  * and <code>endArray</code> methods that make and bound array values, and
  * <code>object</code> and <code>endObject</code> methods which make and bound
  * object values. All of these methods return the JSONWriter instance,
- * permitting cascade style. For example, <pre>
- * myString = new JSONStringer()
- *     .object()
- *         .key("JSON")
- *         .value("Hello, World!")
- *     .endObject()
- *     .toString();</pre> which produces the string <pre>
- * {"JSON":"Hello, World!"}</pre>
+ * permitting cascade style. For example,
+ * 
+ * <pre>
+ * myString = new JSONStringer().object().key("JSON").value("Hello, World!").endObject().toString();
+ * </pre>
+ * 
+ * which produces the string
+ * 
+ * <pre>
+ * {"JSON":"Hello, World!"}
+ * </pre>
  * <p>
  * The first method called must be <code>array</code> or <code>object</code>.
  * There are no methods for adding commas or colons. JSONStringer adds them for
  * you. Objects and arrays can be nested up to 20 levels deep.
  * <p>
  * This can sometimes be easier than using a JSONObject to build a string.
+ * 
  * @author JSON.org
  * @version 2008-09-18
  */
-public class JSONStringer extends JSONWriter {
-    /**
-     * Make a fresh JSONStringer. It can be used to build one JSON text.
-     */
-    public JSONStringer() {
-        super(new StringWriter());
-    }
+public class JSONStringer extends JSONWriter
+{
+	/**
+	 * Make a fresh JSONStringer. It can be used to build one JSON text.
+	 */
+	public JSONStringer()
+	{
+		super(new StringWriter());
+	}
 
-    /**
-     * Return the JSON text. This method is used to obtain the product of the
-     * JSONStringer instance. It will return <code>null</code> if there was a
-     * problem in the construction of the JSON text (such as the calls to
-     * <code>array</code> were not properly balanced with calls to
-     * <code>endArray</code>).
-     * @return The JSON text.
-     */
-    public String toString() {
-        return this.mode == 'd' ? this.writer.toString() : null;
-    }
+	/**
+	 * Return the JSON text. This method is used to obtain the product of the
+	 * JSONStringer instance. It will return <code>null</code> if there was a
+	 * problem in the construction of the JSON text (such as the calls to
+	 * <code>array</code> were not properly balanced with calls to
+	 * <code>endArray</code>).
+	 * 
+	 * @return The JSON text.
+	 */
+	@Override
+	public String toString()
+	{
+		return mode == 'd' ? writer.toString() : null;
+	}
 }

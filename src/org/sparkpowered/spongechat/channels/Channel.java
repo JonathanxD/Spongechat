@@ -1,26 +1,28 @@
 /**
- * 	Spongechat, a new powered chat system for SpongePowered Minecraft API.
- * 	Copyright (C) 2015 Kaward <https://github.com/Kaward/>
- * 	Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/>
+ * 	This file is part from Spongechat.
  *
- * 	This program is free software: you can redistribute it and/or modify
- * 	it under the terms of the GNU General Public License as published by
- * 	the Free Software Foundation, either version 3 of the License, or
- * 	(at your option) any later version.
+ *  Spongechat — A new powered engine for server conversations.
+ *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
  *
- * 	This program is distributed in the hope that it will be useful,
- * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU General Public License for more details.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License.
  *
- * 	You should have received a copy of the GNU General Public License
- * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.sparkpowered.spongechat.channels;
 
 import java.io.Serializable;
 import java.util.UUID;
 
+import org.sparkpowered.spongechat.formats.Format;
 import org.spongepowered.api.util.command.spec.CommandSpec;
 
 /**
@@ -31,13 +33,13 @@ import org.spongepowered.api.util.command.spec.CommandSpec;
  * @category Channel Handlering
  *
  */
-public class Channel implements Serializable
+public class Channel implements Serializable, Comparable<Channel>
 {
 
 	public static final long serialVersionUID = -5576999395852541159L;
 	public transient CommandSpec channelCommand = null;
 	private UUID channelUniqueId = null;
-	private String channelFormat = "";
+	private Format channelFormat = null;
 	private String channelNick = "";
 	private String channelName = "";
 	private int channelMessageCost = 0;
@@ -66,12 +68,12 @@ public class Channel implements Serializable
 	 *
 	 * @return An fake instance (the channel does not exists) of a Channel
 	 */
-	public static Channel makeFake(final UUID channelUniqueId, final String channelName, final String channelNick, final Integer cost, final Integer delay, final Integer distance, final Boolean crossworld, final Boolean colors, final Boolean math, final String format)
+	public static Channel makeFake(final UUID channelUniqueId, final String channelName, final String channelNick, final Integer cost, final Integer delay, final Integer distance, final Boolean crossworld, final Boolean colors, final Boolean math, final Format format)
 	{
 		return new Channel(channelUniqueId, channelName, channelNick, cost, delay, distance, crossworld, colors, math, format);
 	}
 
-	protected Channel(final UUID channelUniqueId, final String channelName, final String channelNick, final Integer cost, final Integer delay, final Integer distance, final Boolean crossworld, final Boolean colors, final Boolean math, final String format)
+	protected Channel(final UUID channelUniqueId, final String channelName, final String channelNick, final Integer cost, final Integer delay, final Integer distance, final Boolean crossworld, final Boolean colors, final Boolean math, final Format format)
 	{
 		this.channelUniqueId = channelUniqueId;
 		this.channelNick = channelNick.replaceAll("\\D\\W", "").trim();
@@ -180,7 +182,7 @@ public class Channel implements Serializable
 	 *
 	 * @return The unformated format of channel to be displayed, like e.g '<b>[{nick}] {prefix} {groupprefix} {name}: {message}'<b>
 	 */
-	public String getFormat()
+	public Format getFormat()
 	{
 		return channelFormat;
 	}
@@ -294,6 +296,18 @@ public class Channel implements Serializable
 	public void setDefault(final boolean default0)
 	{
 		def = default0;
+	}
+
+	@Override
+	public int compareTo(final Channel arg0)
+	{
+		return equals(arg0) ? 1 : 0;
+	}
+
+	@Override
+	public boolean equals(final Object other)
+	{
+		return getIdentification().equals(((Channel) other).getIdentification());
 	}
 
 }

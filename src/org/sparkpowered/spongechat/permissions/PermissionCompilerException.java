@@ -17,26 +17,33 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat.events;
+package org.sparkpowered.spongechat.permissions;
 
-import org.sparkpowered.spongechat.SpongechatAPI;
-import org.sparkpowered.spongechat.channels.Channels;
-import org.spongepowered.api.event.Order;
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
+import java.io.InputStreamReader;
 
-/**
- *
- * @category Event Handlering
- *
- */
-public class EventManager
+public class PermissionCompilerException extends Exception
 {
 
-	@Subscribe(order = Order.FIRST)
-	public void handleJoinEvent(final PlayerJoinEvent event)
+	private static final long serialVersionUID = -3447973245181076624L;
+	private InputStreamReader reader = null;
+	private String message = "";
+
+	public PermissionCompilerException(final InputStreamReader reader, final String message)
 	{
-		SpongechatAPI.getPlayerManager().setFocus(event.getSource(), Channels.DEFAULT_CHANNEL);
+		super(message);
+		this.reader = reader;
+		this.message = message;
+	}
+
+	public InputStreamReader getScriptStream()
+	{
+		return reader;
+	}
+
+	@Override
+	public String getMessage()
+	{
+		return message;
 	}
 
 }

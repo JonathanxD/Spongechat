@@ -1,0 +1,5 @@
+$ This permission is used to create channels.
+# create channel, 1
+  - spongechat.createchannel
+# forfall
+  - spongechat.createchannel

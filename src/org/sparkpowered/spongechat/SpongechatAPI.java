@@ -1,11 +1,13 @@
 /**
- *  Spongechat — A new Powered Chat System for SpongePowered Minecraft API.
+ * 	This file is part from Spongechat.
+ *
+ *  Spongechat — A new powered engine for server conversations.
  *  Copyright (C) 2015 SparkPowered <https://github.com/SparkPowered/> and your contributors;
+ *  Copyright (C) 2015 contributors
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *  the Free Software Foundation, either version 3 of the License.
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,6 +25,9 @@ import java.util.List;
 import org.sparkpowered.spongechat.channels.Channel;
 import org.sparkpowered.spongechat.channels.ChannelManager;
 import org.sparkpowered.spongechat.channels.Channels;
+import org.sparkpowered.spongechat.delays.DelayManager;
+import org.sparkpowered.spongechat.pages.ChatPagination;
+import org.sparkpowered.spongechat.providers.IChatPagination;
 
 /**
  * This class provides access for all API's existents on the Spongechat. Esta classe provém acesso a todas as API's existentes no Spongechat.
@@ -36,20 +41,24 @@ public class SpongechatAPI
 
 	private static final List<Channel> channels = new ArrayList<Channel>();
 
+	/**
+	 * <p>
+	 * Esta lista foi criada mais pelo controle interno, mas você poderá usá-la normalmente para verificar quais canais existem.
+	 * </p>
+	 *
+	 * @return Retorna o List de canais existentes.
+	 */
 	public static List<Channel> getChannels()
 	{
 		return channels;
 	}
 
-	public static Channels getInternalChannelAPI()
-	{
-		return new Channels();
-	}
-
 	/**
-	 * Retorna a instância da classe "Spongechat".
+	 * <p>
+	 * Com essa instância você tem acesso à classe principal do Spongechat.
+	 * </p>
 	 *
-	 * @return Returns the "Spongechat" instance class.
+	 * @return Retorna o provedor da classe principal do Spongechat.
 	 */
 	public static Spongechat getProvider()
 	{
@@ -57,9 +66,35 @@ public class SpongechatAPI
 	}
 
 	/**
-	 * Retorna a API para gerenciamento geral de canais.
+	 * <p>
+	 * O Core de Canais permite que você acesse informações e dados internos de canais, e deve ser usado com muito cuidado para não causar danos.
+	 * </p>
 	 *
-	 * @return Returns the API for geral management of channels.
+	 * @return Retorna o Core de canais.
+	 */
+	public static Channels getChannelCore()
+	{
+		return new Channels();
+	}
+
+	/**
+	 * <p>
+	 * O Core de Paginação pode ser usado para criar books contendo informações sobre mensagens, canais, etc.
+	 * </p>
+	 *
+	 * @return Retorna o Core de paginação.
+	 */
+	public static IChatPagination getPaginationCore()
+	{
+		return new ChatPagination();
+	}
+
+	/**
+	 * <p>
+	 * A API de gerenciamento de canais permite que você mute canais, crie novos canais, remova, edite e obtenha informações, além de contar com API's de edição direta.
+	 * </p>
+	 *
+	 * @return Retorna a API de gerenciamento e controle dos canais de conversa.
 	 */
 	public static ChannelManager getChannelManager()
 	{
@@ -67,13 +102,20 @@ public class SpongechatAPI
 	}
 
 	/**
-	 * Retorna a API para gerenciamento dos jogadores.
+	 * <p>
+	 * A API de gerenciamento de jogadores permite que você controle em quais canais ele está ativo, qual ele está focado, gerenciar os delays que ele tem, etc.
+	 * </p>
 	 *
-	 * @return Returns the API for management of players.
+	 * @return Retorna a API de gerenciamento e controle de jogadores e seus dados.
 	 */
 	public static PlayerManager getPlayerManager()
 	{
 		return new PlayerManager();
+	}
+
+	public static DelayManager getDelayManager()
+	{
+		return new DelayManager();
 	}
 
 }

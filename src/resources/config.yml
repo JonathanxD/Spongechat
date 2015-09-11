@@ -1,0 +1,18 @@
+# This option replace double spaces (like "  ") to one space (like "  " to " ").
+removeDoubleSpaces: true
+
+# This option check and remove repeated tags from the message format when it was sended.
+removeRepeatedTags: true
+
+# This option enables the AdBlock (AntiADs).
+# The message can be configured in your language file.
+enableAdBlock: trues
+
+# This is name of default channel (when player join in the server, its automatically join in this channel)
+# CAUTION: this value couldn't be null. NULL value CAN cause internal damages for Spongechat.
+defaultChannel: local
+
+# This system in alpha-version and added only for tests.
+# Don't use it, in no one case!
+enableNativeApi:
+- player.mute(), player.unmute(); PlayerManager.h; disabled

@@ -17,26 +17,23 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.sparkpowered.spongechat.events;
+package org.sparkpowered.spongechat.formats;
 
-import org.sparkpowered.spongechat.SpongechatAPI;
-import org.sparkpowered.spongechat.channels.Channels;
-import org.spongepowered.api.event.Order;
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
+import java.util.UUID;
 
-/**
- *
- * @category Event Handlering
- *
- */
-public class EventManager
+import org.spongepowered.api.plugin.Plugin;
+
+public interface Tag
 {
 
-	@Subscribe(order = Order.FIRST)
-	public void handleJoinEvent(final PlayerJoinEvent event)
-	{
-		SpongechatAPI.getPlayerManager().setFocus(event.getSource(), Channels.DEFAULT_CHANNEL);
-	}
+	public UUID id();
+
+	public Plugin provider();
+
+	public String keyword();
+
+	public String content();
+
+	public String brackets();
 
 }
